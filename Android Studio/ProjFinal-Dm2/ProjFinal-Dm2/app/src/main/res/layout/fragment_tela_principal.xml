@@ -82,8 +82,8 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="129dp"
-        android:layout_height="63dp"
+        android:layout_width="81dp"
+        android:layout_height="70dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="169dp"
         android:background="@drawable/usericon"

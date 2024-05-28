@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#00BCD4"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="1dp"
+        android:text="senha"
+        app:layout_constraintBottom_toTopOf="@+id/textInputEditText2"
+        app:layout_constraintStart_toStartOf="@+id/textInputEditText2"
+        app:layout_constraintTop_toBottomOf="@+id/txtLogin" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/border_rounded"
+        android:hint="Email"
+        android:typeface="serif"
+        app:circularflow_defaultRadius="10dp"
+        app:circularflow_radiusInDP="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtLogin" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="66dp"
+        android:background="@drawable/border_rounded"
+        android:hint="Senha"
+        android:password="true"
+        android:typeface="serif"
+        app:circularflow_angles="@string/material_motion_easing_linear"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSenha" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Login"
+        android:textSize="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="248dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="57dp"
+        android:background="@drawable/border_rounded"
+        android:backgroundTint="#85CFD8"
+        android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/btnReg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
+
+    <TextView
+        android:id="@+id/txtLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="99dp"
+        android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+        app:layout_constraintStart_toStartOf="@+id/textInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/usericon" />
+
+    <Button
+        android:id="@+id/btnReg"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="69dp"
+        android:background="@drawable/border_rounded2"
+        android:backgroundTint="#85CFD8"
+        android:text="Registrar-se"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

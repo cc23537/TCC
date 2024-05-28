@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.loginfrag.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/navigation"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.loginfrag.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_navigation"
+            app:destination="@id/navigation" />
+        <action
+            android:id="@+id/action_mainFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <navigation
+        android:id="@+id/navigation"
+        app:startDestination="@id/loginFragment">
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.loginfrag.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/fragment_login">
+            <action
+                android:id="@+id/action_loginFragment_to_registerUserFragment"
+                app:destination="@id/registerUserFragment" />
+            <action
+                android:id="@+id/action_loginFragment_to_mainFragment"
+                app:destination="@id/mainFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/registerUserFragment"
+            android:name="com.example.loginfrag.RegisterUserFragment"
+            android:label="fragment_register_user"
+            tools:layout="@layout/fragment_register_user" />
+    </navigation>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.loginfrag.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="nome"
+            app:argType="string" />
+        <argument
+            android:name="codigo"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/telaPrincipalFragment"
+        android:name="com.example.loginfrag.TelaPrincipalFragment"
+        android:label="fragment_tela_principal"
+        tools:layout="@layout/fragment_tela_principal" />
+</navigation>

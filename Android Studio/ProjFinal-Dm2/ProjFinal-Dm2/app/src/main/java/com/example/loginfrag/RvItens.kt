@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginfrag.databinding.RvItensBinding
@@ -39,8 +40,8 @@ class RvItens(private  val discplinasList : ArrayList<Disciplinas> ): RecyclerVi
         holder.apply {
             binding.apply {
                 tvNameItem.text = currentItem.Nome
-                tvCodigoItem.text = "Valor Calórico: " + currentItem.Calorias
-                tvIdItem.text = "ID: " + currentItem.ID
+                tvNameItem.text = "Valor Calórico: " + currentItem.Calorias
+                tvQuantidade.text = "ID: " + currentItem.ID
                 rvContainer.setOnClickListener {
                     val action = MainFragmentDirections.actionMainFragmentToUpdateFragment(
                         currentItem.ID.toString(),

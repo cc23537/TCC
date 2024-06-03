@@ -34,13 +34,13 @@ class RegisterUserFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.btnCancel.setOnClickListener {
+        binding.btncancel.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.BtnRegistrar.setOnClickListener {
-            val email = binding.edtEmailAddressRG.text.toString()
-            val pwd = binding.edtPasswordRg.text.toString()
+        binding.btnLogin.setOnClickListener {
+            val email = binding.edtEmail.text.toString()
+            val pwd = binding.edtPassworld.text.toString()
 
             auth.createUserWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener { task ->

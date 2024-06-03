@@ -32,13 +32,13 @@ class LoginFragment : Fragment() {
 
         auth = Firebase.auth
 
-        binding.txtRegister.setOnClickListener {
+        binding.btnReg.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         }
 
-        binding.BtnLogin.setOnClickListener {
-            val email = binding.editTextTextEmailAddress.text.toString()
-            val pwd = binding.editTextTextPassword.text.toString()
+        binding.btnLogin.setOnClickListener {
+            val email = binding.edtEmail.text.toString()
+            val pwd = binding.edtPassworld.text.toString()
             auth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener {task ->
                     if (task.isSuccessful){

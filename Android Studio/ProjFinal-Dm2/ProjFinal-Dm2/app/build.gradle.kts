@@ -5,7 +5,9 @@ plugins {
     alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
     id("androidx.navigation.safeargs")
     id("org.jetbrains.kotlin.android")
+
 }
+
 
 android {
     namespace = "com.example.loginfrag"

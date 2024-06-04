@@ -8,8 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.example.loginfrag.databinding.AddFragmentBinding
+import com.example.loginfrag.http.HttpHelper
+import com.example.loginfrag.model.Armario
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.gson.*
+import org.jetbrains.annotations.Async
 
 class AddDialog : DialogFragment(){
 
@@ -46,6 +50,12 @@ class AddDialog : DialogFragment(){
         val nome = binding.edNome.text.toString()
         val codigo = binding.edCodigo.text.toString()
         val id = firebaseRef.push().key!!
+        val fruta = Armario(nome,codigo.toInt())
+        val gson = Gson()
+        val d = gson.toJson(fruta)
+        println("---------" + d)
+
+
 
         if(nome.isEmpty() || codigo.isEmpty()){
             Toast.makeText(context, "Preencha todos os campos para adicionar uma Disciplina!", Toast.LENGTH_SHORT).show()
@@ -61,5 +71,7 @@ class AddDialog : DialogFragment(){
                     Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
         }
+
+
     }
 }

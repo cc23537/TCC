@@ -61,12 +61,17 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.auth)
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-
     implementation("com.google.firebase:firebase-database-ktx:latest_version")
     implementation(libs.firebase.database)
+    implementation(libs.firebase.crashlytics.buildtools)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("com.google.code.gson:gson:2.8.2")
+    //implementation("com.squareup.okhttp3:3.10.0")
+    //implementation("org.jetbrains.anko:anko-sqlite:.10.4")
+    implementation("com.squareup.retrofit2:retrofit:2.7.2")
+    //implementation("com.squareup.retrofit2:convert-gson:2.7.2")
+
 }

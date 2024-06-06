@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
             auth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener {task ->
                     if (task.isSuccessful){
-                        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                        findNavController().navigate(R.id.action_global_menuLateral)
                    }
                    else  {
                        Toast.makeText(activity,task.exception?.message,

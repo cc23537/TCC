@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.findNavController
 import com.example.loginfrag.databinding.AddFragmentBinding
-import com.example.loginfrag.http.HttpHelper
 import com.example.loginfrag.model.Armario
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.*
-import org.jetbrains.annotations.Async
 
 class AddDialog : DialogFragment(){
 
@@ -60,9 +57,9 @@ class AddDialog : DialogFragment(){
         if(nome.isEmpty() || codigo.isEmpty()){
             Toast.makeText(context, "Preencha todos os campos para adicionar uma Disciplina!", Toast.LENGTH_SHORT).show()
         }else{
-            val disciplinas = Disciplinas(id, nome, codigo)
+            val alimentos = Alimentos(id, nome, codigo)
 
-            firebaseRef.child(id).setValue(disciplinas)
+            firebaseRef.child(id).setValue(alimentos)
                 .addOnCompleteListener{
                     Toast.makeText(context, "Disciplina Adicionada com sucesso", Toast.LENGTH_SHORT).show()
                     dismiss()

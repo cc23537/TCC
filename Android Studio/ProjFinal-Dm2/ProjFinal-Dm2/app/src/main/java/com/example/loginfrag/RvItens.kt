@@ -5,15 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginfrag.databinding.RvItensBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
 import java.util.ArrayList
 
-class RvItens(private  val discplinasList : ArrayList<Disciplinas> ): RecyclerView.Adapter<RvItens.ViewHolder>() {
+class RvItens(private  val discplinasList : ArrayList<Alimentos> ): RecyclerView.Adapter<RvItens.ViewHolder>() {
 
     class ViewHolder(val binding: RvItensBinding) : RecyclerView.ViewHolder(binding.root) {
 

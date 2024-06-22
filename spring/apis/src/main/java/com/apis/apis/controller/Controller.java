@@ -1,21 +1,21 @@
 package com.apis.apis.controller;
 
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.apis.apis.models.Pessoa;
-import com.apis.apis.repository.Repositorio;
+import com.apis.apis.repository.PessoaRepository;
 
 @RestController
 public class Controller {
     
     @Autowired
-    private Repositorio acao;
+
+    private PessoaRepository pessoaRepository;
 
     @PostMapping("/api")
     public Pessoa cadastrar(@RequestBody Pessoa p){
-        return acao.save(p);
+        return pessoaRepository.save(p);
     }
 
     @GetMapping("/hello")

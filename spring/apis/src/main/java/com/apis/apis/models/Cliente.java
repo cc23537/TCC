@@ -10,10 +10,19 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCliente;
 
+    @Column(nullable = false)
     private String nomeCliente;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String senha;
+
+    @Column(nullable = true)
     private Double peso;
+
+    @Column(nullable = true)
     private Double altura;
 
     public Cliente(String nomeCliente, String email, String senha, Double peso, Double altura) {

@@ -10,9 +10,10 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
 
-    
+    @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
     private int idade;
     
     public Pessoa(String nome, int idade) {

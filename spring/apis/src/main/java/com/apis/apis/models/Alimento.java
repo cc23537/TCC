@@ -9,9 +9,14 @@ public class Alimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAlimento;
-
+    
+    @Column(nullable = false)
     private String nomeAlimento;
+
+    @Column(nullable = true)
     private Double calorias;
+
+    @Column(nullable = true)
     private String especificacoes;
 
     public Alimento(String nomeAlimento, Double calorias, String especificacoes) {

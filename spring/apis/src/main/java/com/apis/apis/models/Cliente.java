@@ -25,6 +25,10 @@ public class Cliente {
     @Column(nullable = true)
     private Double altura;
 
+    public Cliente(){
+        
+    }
+
     public Cliente(String nomeCliente, String email, String senha, Double peso, Double altura) {
         this.nomeCliente = nomeCliente;
         this.email = email;

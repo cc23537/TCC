@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroFragment">
+
+    <TextView
+        android:id="@+id/txtSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="senha"
+        app:layout_constraintBottom_toTopOf="@+id/edtPassworld"
+        app:layout_constraintStart_toStartOf="@+id/edtPassworld"
+        app:layout_constraintTop_toBottomOf="@+id/txtLogin" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edtEmail"
+        android:layout_width="343dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/border_rounded"
+        android:hint="Email"
+        android:typeface="serif"
+        app:circularflow_defaultRadius="10dp"
+        app:circularflow_radiusInDP="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtLogin" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edtPassworld"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/border_rounded"
+        android:hint="Senha"
+        android:password="true"
+        android:typeface="serif"
+        app:circularflow_angles="@string/material_motion_easing_linear"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSenha" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Registro"
+        android:textSize="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="273dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="141dp"
+        android:background="@drawable/border_rounded"
+        android:backgroundTint="#85CFD8"
+        android:text="Registrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPassworld" />
+
+    <TextView
+        android:id="@+id/txtLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="98dp"
+        android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+        app:layout_constraintStart_toStartOf="@+id/edtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="394dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="470dp"
+        app:layout_constraintBottom_toTopOf="@+id/btncancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/usericon" />
+
+    <Button
+        android:id="@+id/btncancel"
+        android:layout_width="149dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="72dp"
+        android:text="Voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

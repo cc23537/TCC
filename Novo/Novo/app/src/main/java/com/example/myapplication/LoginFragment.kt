@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val message = response.body()
                         println("Response Body: $message") // Log de depuração
-                        findNavController().navigate(R.id.action_loginFragment_to_nav_home)
+                        findNavController().navigate(R.id.action_loginFragment2_to_mobile_navigation)
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
                         println(errorMessage) // Log de depuração

@@ -26,9 +26,15 @@ public class Controller {
 
 
     //Rotas De cliente
-    @GetMapping("/cliente/{email}")
-    public Cliente acharLogin(@PathVariable String email){
-        return clienteRepository.findByEmail(email);
+    @GetMapping("/cliente/{email}/{senha}")
+    public Cliente acharLogin(@PathVariable String email,  @PathVariable String senha){
+        Cliente verify =  clienteRepository.findByEmail(email);
+        if(verify.getSenha()== senha){
+            return verify;
+        }
+        else{
+            return null;
+        }
     }
 
     @GetMapping("/cliente")

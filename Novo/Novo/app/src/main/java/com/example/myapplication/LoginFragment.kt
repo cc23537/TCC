@@ -23,30 +23,28 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Path
 
-
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
-        // Inflate the layout for this fragment
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnLogin.setOnClickListener{
+        binding.btnLogin.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val senha = binding.edtPassworld.text.toString()
-            fetchData(email,senha)
+            fetchData(email, senha)
         }
-
+        binding.btnReg.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registroFragment)
+        }
     }
 
     private fun fetchData(email: String, password: String) {
@@ -57,22 +55,22 @@ class LoginFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         val message = response.body()
-                        println("Response Body: $message") // Log de depuração
-                        //findNavController().navigate(R.id.action_loginFragment_to_mobile_navigation)
+                        println("Response Body: $message")
+                        findNavController().navigate(R.id.action_loginFragment_to_nav_home)
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
-                        println(errorMessage) // Log de depuração
+                        println(errorMessage)
                     }
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
-                    println("IOException: ${e.message}") // Log de depuração
+                    println("IOException: ${e.message}")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
-                    println("Exception: ${e.message}") // Log de depuração
+                    println("Exception: ${e.message}")
                 }
             }
         }
@@ -87,33 +85,29 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/") // URL base para o servidor local acessível pelo emulador
+            .baseUrl("http://10.0.2.2:8080/")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
     }
+
     interface ApiService {
         @GET("cliente/{email}/{senha}")
         suspend fun login(@Path("email") email: String, @Path("senha") password: String): Response<String>
     }
-
-
 }
 
 object UnsafeOkHttpClient {
     fun getUnsafeOkHttpClient(): OkHttpClient {
         return try {
-            // Cria um trust manager que não valida cadeias de certificados
             val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
                 override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
                 override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
             })
 
-            // Instala o trust manager que confia em todos os certificados
             val sslContext = SSLContext.getInstance("SSL")
             sslContext.init(null, trustAllCerts, SecureRandom())
-            // Cria uma fábrica de sockets SSL com nosso trust manager que confia em todos os certificados
             val sslSocketFactory = sslContext.socketFactory
 
             val builder = OkHttpClient.Builder()

@@ -47,6 +47,12 @@ public class Controller {
         return clienteRepository.save(c);
     }
 
+    @DeleteMapping("/cliente/{codigo}")
+    public void remover(@PathVariable int codigo){
+        Cliente obj = clienteRepository.findByIdCliente(codigo);
+        clienteRepository.delete(obj);
+    }
+
 
 
 

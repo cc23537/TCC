@@ -13,8 +13,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
 
+        <!-- Certifique-se de que o nome da atividade esteja correto e em maiúsculas -->
         <activity
-            android:name=".loginActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>

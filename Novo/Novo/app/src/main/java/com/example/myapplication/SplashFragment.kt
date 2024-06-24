@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,8 +30,17 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(3000) // Simulating a 3-second delay for the splash screen
-            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            if(isLoggedIn()){
+                findNavController().navigate(R.id.action_splashFragment_to_nav_home)
+            }else {
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
         }
+    }
+
+    private fun isLoggedIn(): Boolean {
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        return sharedPreferences.getBoolean("isLoggedIn", false)
     }
 
     override fun onDestroy() {

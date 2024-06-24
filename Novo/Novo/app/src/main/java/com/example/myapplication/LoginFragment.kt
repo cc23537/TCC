@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,6 +57,7 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val message = response.body()
                         println("Response Body: $message")
+                        saveLogin()
                         findNavController().navigate(R.id.action_loginFragment_to_nav_home)
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
@@ -94,6 +96,13 @@ class LoginFragment : Fragment() {
     interface ApiService {
         @GET("cliente/{email}/{senha}")
         suspend fun login(@Path("email") email: String, @Path("senha") password: String): Response<String>
+    }
+
+    private fun saveLogin() {
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", true)
+        editor.apply()
     }
 }
 

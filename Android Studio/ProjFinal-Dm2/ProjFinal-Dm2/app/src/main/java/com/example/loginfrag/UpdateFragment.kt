@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.example.loginfrag.databinding.FragmentMainBinding
 import com.example.loginfrag.databinding.FragmentUpdateBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import androidx.navigation.fragment.navArgs as navArgs
 
 class UpdateFragment : Fragment() {
 
@@ -61,9 +59,9 @@ class UpdateFragment : Fragment() {
         val codigo = binding.edCodigo.text.toString()
         val id = binding.edId.text.toString()
 
-        val disciplinas = Disciplinas(id, nome, codigo)
+        val alimentos = Alimentos(id, nome, codigo)
 
-        firebaseRef.child(id).setValue(disciplinas)
+        firebaseRef.child(id).setValue(alimentos)
             .addOnCompleteListener{
                 Toast.makeText(context, "Sua Edição foi concluida com sucesso", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_updateFragment_to_mainFragment)

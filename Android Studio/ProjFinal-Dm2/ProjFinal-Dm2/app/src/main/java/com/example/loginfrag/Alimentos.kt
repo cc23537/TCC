@@ -1,6 +1,6 @@
 package com.example.loginfrag
 
-class Disciplinas {
+class Alimentos {
     var ID: String? = null
     var Nome: String? = null
     var Calorias: String? = null

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginfrag.databinding.FragmentMainBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -38,7 +37,7 @@ class MainFragment : Fragment() {
     private lateinit var auth : FirebaseAuth
     private var currentUser: FirebaseUser? = null
 
-    private lateinit var disciplinaList: ArrayList<Disciplinas>
+    private lateinit var disciplinaList: ArrayList<Alimentos>
     private lateinit var db: DatabaseReference
 
 
@@ -182,7 +181,7 @@ class MainFragment : Fragment() {
                 disciplinaList.clear()
                 if(snapshot.exists()){
                     for(disciplinasSnap in snapshot.children){
-                        val disciplina = disciplinasSnap.getValue(Disciplinas::class.java)
+                        val disciplina = disciplinasSnap.getValue(Alimentos::class.java)
                         disciplinaList.add(disciplina!!)
                     }
                 }

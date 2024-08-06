@@ -7,6 +7,7 @@ buildscript{
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
         classpath("com.android.tools.build:gradle:4.2.0")
 
+
     }
 }
 

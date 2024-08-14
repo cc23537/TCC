@@ -15,15 +15,11 @@ import com.apis.apis.repository.ClienteRepository;
 @RestController
 public class Controller {
     
-   
-   
-
     @Autowired
     private AlimentoRepository alimentoRepository;
 
     @Autowired
     private ClienteRepository clienteRepository;
-
 
     //Rotas De cliente
     @GetMapping("/cliente/{email}/{senha}")
@@ -60,7 +56,7 @@ public class Controller {
     //Alimentos 
     
     @GetMapping("/alimentos")
-    public List<Alimentos> retornaTodos(){
+    public List<Alimento> retornaTodosAlimentos(){
         return alimentoRepository.findAll();
     }
     
@@ -69,8 +65,8 @@ public class Controller {
         return alimentoRepository.save(a);
     }
     @DeleteMapping("/alimentos/{codigo}")
-    public void remover(@PathVariable int codigo){
-        Alimento obj = alimentoRepository.findByIdCliente(codigo);
+    public void removerAlimento(@PathVariable int codigo){
+        Alimento obj = alimentoRepository.findByIdAlimento(codigo);
         alimentoRepository.delete(obj);
     }
 

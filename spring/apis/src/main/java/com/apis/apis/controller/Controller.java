@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
 import org.springframework.web.bind.annotation.*;
 
+import com.apis.apis.models.Alimento;
 import com.apis.apis.models.Cliente;
-import com.apis.apis.models.Pessoa;
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
-import com.apis.apis.repository.PessoaRepository;
+
 
 @RestController
 public class Controller {
     
-    @Autowired
-    private PessoaRepository pessoaRepository;
+   
+   
 
     @Autowired
     private AlimentoRepository alimentoRepository;
@@ -57,17 +57,29 @@ public class Controller {
 
 
 
-    //Rotas testes
-    @PostMapping("/pessoas")
-    public Pessoa cadastrar(@RequestBody Pessoa p){
-        return pessoaRepository.save(p);
+    //Alimentos 
+    
+    @GetMapping("/alimentos")
+    public List<Alimentos> retornaTodos(){
+        return alimentoRepository.findAll();
+    }
+    
+    @PostMapping("/alimentos")
+    public Alimento cadastrar(@RequestBody Alimento a){
+        return alimentoRepository.save(a);
+    }
+    @DeleteMapping("/alimentos/{codigo}")
+    public void remover(@PathVariable int codigo){
+        Alimento obj = alimentoRepository.findByIdCliente(codigo);
+        alimentoRepository.delete(obj);
     }
 
     @GetMapping("/helloworld")
     public String mensagem(){
         return "Hello World!";
     }
+    
 
-
+    
 
 }

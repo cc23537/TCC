@@ -26,18 +26,20 @@ class ListadeComprasFragment : Fragment() {
         return binding!!.root
         }
 
-    private fun ListagemCompras() {
+    private fun ListagemCompras(): List<compra> {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val apiService = getRetrofit().create(RegistroFragment.ApiService::class.java)
                 val response = apiService.listagemCompras()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        val listagem = response.body()
+                        val listagem = response.body().toString()
                         println("listagem: $listagem") // Log de depuração
+                        response.body()
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
                         println(errorMessage) // Log de depuração
+                        null
                     }
                 }
             } catch (e: IOException) {

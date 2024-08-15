@@ -80,7 +80,7 @@ class RegistroFragment : Fragment() {
         }
     }
 
-    private fun getRetrofit(): Retrofit {
+    public fun getRetrofit(): Retrofit {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -100,6 +100,16 @@ class RegistroFragment : Fragment() {
 
         @POST("cliente")
         suspend fun register(@Body user: User): Response<User>
+
+        @POST("compras")
+        suspend fun registroCompras(@Body compra: compra):Response<compra>
+        @GET("compras")
+        suspend fun listagemCompras(): Response<String>
+
+        @POST("alimentos")
+        suspend fun registroAlimentos(@Body alimento: alimento):Response<alimento>
+        @GET("alimentos")
+        suspend fun listagemArmario(): Response<String>
     }
 }
 
@@ -107,4 +117,12 @@ data class User(
     val nomeCliente: String,
     val email: String,
     val senha: String
+)
+
+data class alimento(
+    val nomealimento: String,
+)
+data class compra(
+    val alimentoASerComprado: String,
+    val quantidade: Int,
 )

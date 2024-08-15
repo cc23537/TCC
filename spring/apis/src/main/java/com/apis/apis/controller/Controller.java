@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.apis.apis.models.Alimento;
 import com.apis.apis.models.Cliente;
+
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 
 @RestController
@@ -69,6 +74,11 @@ public class Controller {
         Alimento obj = alimentoRepository.findByIdAlimento(codigo);
         alimentoRepository.delete(obj);
     }
+
+    // Compras
+
+  
+    
 
     @GetMapping("/helloworld")
     public String mensagem(){

@@ -31,9 +31,12 @@ class FragmentAddAlimentoComprado : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var nome = binding.edtNomeAddAlimento.text.toString()
+        var qtde = binding.edtQuantidadeAddAlimentos.text.toString().toInt()
+        registerCompra(nome,qtde)
     }
 
-    private fun registerUser(nome:String,qtde: Int) {
+    private fun registerCompra(nome:String,qtde: Int) {
         val compra = compra(nome,qtde)
 
         lifecycleScope.launch(Dispatchers.IO) {

@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.apis.apis.models.Alimento;
 import com.apis.apis.models.Cliente;
-
+import com.apis.apis.models.Compras;
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
+import com.apis.apis.repository.ComprasRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +26,9 @@ public class Controller {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ComprasRepository comprasRepository;
 
     //Rotas De cliente
     @GetMapping("/cliente/{email}/{senha}")
@@ -76,6 +80,18 @@ public class Controller {
     }
 
     // Compras
+
+    @GetMapping("/compras")
+    public List<Compras> CarrinhoDeCompras() {
+        return comprasRepository.findAll();
+    }
+
+    @PostMapping("/compras")
+    public Compras alimentoASerComprado(@RequestBody Compras a){
+        return comprasRepository.save(a)
+
+    }
+    
 
   
     

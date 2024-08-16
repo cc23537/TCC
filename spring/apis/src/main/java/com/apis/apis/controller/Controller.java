@@ -88,7 +88,7 @@ public class Controller {
 
     @PostMapping("/compras")
     public Compras alimentoASerComprado(@RequestBody Compras a){
-        return comprasRepository.save(a)
+        return comprasRepository.save(a);
 
     }
     

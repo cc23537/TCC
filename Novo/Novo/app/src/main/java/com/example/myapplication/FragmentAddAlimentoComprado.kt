@@ -76,7 +76,7 @@ class FragmentAddAlimentoComprado : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/")
+            .baseUrl("http://10.0.2.2:8081/")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

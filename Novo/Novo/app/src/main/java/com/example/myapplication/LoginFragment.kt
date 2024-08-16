@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
                         val message = response.body()
                         println("Response Body: $message")
                         saveLogin()
-                        findNavController().navigate(R.id.action_loginFragment_to_nav_home)
+                        findNavController().navigate(R.id.action_loginFragment_to_listadeComprasFragment)//action_loginFragment_to_nav_home
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
                         println(errorMessage)
@@ -87,7 +87,7 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/")
+            .baseUrl("http://10.0.2.2:8081/")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

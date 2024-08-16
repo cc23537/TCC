@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txtNomeAddAlimento"
         android:layout_width="216dp"
         android:layout_height="33dp"
         android:layout_marginStart="36dp"
@@ -56,7 +56,7 @@
 
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txtQuantidadeAddAlimento"
         android:layout_width="196dp"
         android:layout_height="36dp"
         android:layout_marginStart="36dp"

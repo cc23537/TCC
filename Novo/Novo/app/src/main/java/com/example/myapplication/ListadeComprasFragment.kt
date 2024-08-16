@@ -26,14 +26,15 @@ class ListadeComprasFragment : Fragment() {
         return binding!!.root
         }
 
-    private fun ListagemCompras(): List<compra> {
-        lifecycleScope.launch(Dispatchers.IO) {
+
+    private suspend fun ListagemCompras(): String? {
+        return withContext(Dispatchers.IO) {
             try {
                 val apiService = getRetrofit().create(RegistroFragment.ApiService::class.java)
                 val response = apiService.listagemCompras()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        val listagem = response.body().toString()
+                        var listagem = response.body().toString()
                         println("listagem: $listagem") // Log de depuração
                         response.body().toString()
                     } else {
@@ -42,17 +43,21 @@ class ListadeComprasFragment : Fragment() {
                         null
                     }
                 }
+
             } catch (e: IOException) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
                     println("IOException: ${e.message}") // Log de depuração
+                    null
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
                     println("Exception: ${e.message}") // Log de depuração
+                    null
                 }
             }
+
         }
     }
 
@@ -65,7 +70,7 @@ class ListadeComprasFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/")
+            .baseUrl("http://10.0.2.2:8081/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -35,7 +35,7 @@ class ListadeComprasFragment : Fragment() {
                     if (response.isSuccessful) {
                         val listagem = response.body().toString()
                         println("listagem: $listagem") // Log de depuração
-                        response.body()
+                        response.body().toString()
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
                         println(errorMessage) // Log de depuração

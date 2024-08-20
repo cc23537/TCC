@@ -30,11 +30,11 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(3000) // Simulating a 3-second delay for the splash screen
-            if(isLoggedIn()){
-                findNavController().navigate(R.id.action_splashFragment_to_nav_home)
-            }else {
-                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-            }
+            //if(isLoggedIn()){
+                //findNavController().navigate(R.id.action_splashFragment_to_mainActivity2)
+            //}else {
+            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            //}
         }
     }
 

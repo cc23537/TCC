@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
                         val message = response.body()
                         println("Response Body: $message")
                         saveLogin()
-                        findNavController().navigate(R.id.action_loginFragment_to_mainActivity)//action_loginFragment_to_nav_home
+                        findNavController().navigate(R.id.action_loginFragment_to_mainActivity2)//action_loginFragment_to_nav_home
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
                         println(errorMessage)

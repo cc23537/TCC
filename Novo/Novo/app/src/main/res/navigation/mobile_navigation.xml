@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_splashFragment_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_splashFragment_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -48,6 +51,9 @@
         <action
             android:id="@+id/action_loginFragment_to_listadeComprasFragment"
             app:destination="@id/listadeComprasFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
@@ -66,4 +72,9 @@
         android:name="com.example.myapplication.ListadeComprasFragment"
         android:label="fragment_listade_compras"
         tools:layout="@layout/fragment_listade_compras" />
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.example.myapplication.MainActivity"
+        android:label="app_bar_main"
+        tools:layout="@layout/app_bar_main" />
 </navigation>

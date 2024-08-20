@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main">
+    tools:context=".ui.gallery.GalleryFragment">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
-        android:name="com.example.myapplication.ui.home.HomeFragment"
-        android:layout_width="377dp"
-        android:layout_height="702dp"
+    <TextView
+        android:id="@+id/text_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

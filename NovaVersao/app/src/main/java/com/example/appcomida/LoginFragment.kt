@@ -95,10 +95,7 @@ class LoginFragment : Fragment() {
             .build()
     }
 
-    interface ApiService {
-        @GET("cliente/{email}/{senha}")
-        suspend fun login(@Path("email") email: String, @Path("senha") password: String): Response<String>
-    }
+
 
     private fun saveLogin() {
         val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs",

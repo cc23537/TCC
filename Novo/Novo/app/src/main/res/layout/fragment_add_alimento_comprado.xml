@@ -8,28 +8,6 @@
     tools:context=".AddAlimentoFragment">
 
 
-    <EditText
-        android:id="@+id/edCodigo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:hint="Código"
-        android:inputType="text" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="256dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="77dp"
-        android:layout_marginBottom="152dp"
-        android:background="@drawable/border_button"
-        android:backgroundTint="@color/blue_button"
-        android:fontFamily="@font/allerta"
-        android:text="ADICIONAR"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/txtAdd"
         android:layout_width="wrap_content"
@@ -55,30 +33,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
 
 
-    <TextView
-        android:id="@+id/txtQuantidadeAddAlimento"
-        android:layout_width="196dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="260dp"
-        android:fontFamily="@font/acme"
-        android:text="QUANTIDADE"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="197dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="160dp"
-        android:fontFamily="@font/acme"
-        android:text="DATA DA COMPRA"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
-
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edtNomeAddAlimento"
         android:layout_width="336dp"
@@ -92,6 +46,18 @@
         android:typeface="serif"
         app:circularflow_defaultRadius="10dp"
         app:circularflow_radiusInDP="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="197dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="160dp"
+        android:fontFamily="@font/acme"
+        android:text="DATA DA COMPRA"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
 
@@ -111,6 +77,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
+    <TextView
+        android:id="@+id/txtQuantidadeAddAlimento"
+        android:layout_width="196dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="260dp"
+        android:fontFamily="@font/acme"
+        android:text="QUANTIDADE"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
+
     <EditText
         android:id="@+id/edtQuantidadeAddAlimentos"
         android:layout_width="168dp"
@@ -126,5 +104,19 @@
         app:circularflow_radiusInDP="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="256dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginBottom="152dp"
+        android:background="@drawable/border_button"
+        android:backgroundTint="@color/blue_button"
+        android:fontFamily="@font/allerta"
+        android:text="ADICIONAR"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

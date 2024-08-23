@@ -17,10 +17,10 @@ public interface ApiService {
     @POST("compras")
     fun registroCompras(@Body compra: compra): Response<compra>
     @GET("compras")
-    fun listagemCompras(): Response<String>
+    fun listagemCompras(): Response<List<compra>>
 
     @POST("alimentos")
     fun registroAlimentos(@Body alimento: alimento): Response<alimento>
     @GET("alimentos")
-    fun listagemArmario(): Response<String>
+    fun listagemArmario(): Response<List<alimento>>
 }

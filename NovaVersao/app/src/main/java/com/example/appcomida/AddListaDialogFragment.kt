@@ -33,8 +33,11 @@ class AddListaDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.btnAdd.setOnClickListener{
+        binding.btnAddC.setOnClickListener{
             //adicionar()
+            val NomeCompra = binding.edtNomeAddCompra.text.toString()
+            val DataCompra = binding.edtDataCompra.text.toString()
+            val DescCompra = binding.edtDescCompra.text.toString()
         }
     }
 

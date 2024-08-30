@@ -8,7 +8,7 @@
     tools:context=".AddListaDialogFragment">
 
     <TextView
-        android:id="@+id/txtAdd"
+        android:id="@+id/txtAddC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
@@ -32,7 +32,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtNomeAddAlimento"
+            android:id="@+id/edtNomeAddCompra"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginStart="20dp"
@@ -47,11 +47,11 @@
             app:circularflow_defaultRadius="10dp"
             app:circularflow_radiusInDP="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
+            app:layout_constraintTop_toBottomOf="@+id/txtAddC" />
 
 
         <EditText
-            android:id="@+id/edtDataAddAlimentos"
+            android:id="@+id/edtDataCompra"
             android:layout_width="168dp"
             android:layout_height="44dp"
             android:layout_marginStart="20dp"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <EditText
-            android:id="@+id/edtQuantidadeAddAlimentos"
+            android:id="@+id/edtDescCompra"
             android:layout_width="168dp"
             android:layout_height="44dp"
             android:layout_marginStart="20dp"
@@ -80,10 +80,10 @@
             app:circularflow_defaultRadius="10dp"
             app:circularflow_radiusInDP="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAdd" />
+            app:layout_constraintTop_toBottomOf="@+id/txtAddC" />
 
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnAddC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

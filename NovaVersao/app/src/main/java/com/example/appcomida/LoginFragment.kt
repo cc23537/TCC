@@ -30,6 +30,8 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +62,8 @@ class LoginFragment : Fragment() {
                         val message = response.body()
                         println("Response Body: $message")
                         saveLogin()
-                        findNavController().navigate(R.id.action_loginFragment_to_nav_home)//action_loginFragment_to_nav_home
+                        //findNavController().navigate(R.id.action_loginFragment_to_nav_home)//action_loginFragment_to_nav_home
+                        (activity as MainActivity).navigateToMain()
                     } else {
                         val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
                         println(errorMessage)

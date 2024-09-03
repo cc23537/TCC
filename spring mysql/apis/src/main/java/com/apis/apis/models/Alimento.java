@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "TCC_Alimentos")
-public class Alimento {
+public class Alimento /*implements Cloneable*/ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

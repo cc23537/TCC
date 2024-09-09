@@ -48,5 +48,5 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
-    implementation "com.varunbarad:highlightable-calendar-view:1.0.0"
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
 }

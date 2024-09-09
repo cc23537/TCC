@@ -7,11 +7,15 @@
     tools:context=".ui.slideshow.SlideshowFragment">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/materialCalendarView"
-        android:layout_width="match_parent"
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:mcv_showOtherMonths="false"
-        app:mcv_selectionMode="single"
-        tools:ignore="MissingClass,MissingConstraints" />
+        android:layout_marginTop="116dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mcv_showOtherDates="all"
+        tools:ignore="MissingClass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

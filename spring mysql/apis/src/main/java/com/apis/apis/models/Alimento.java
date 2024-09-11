@@ -28,7 +28,13 @@ public class Alimento /*implements Cloneable*/ {
         this.especificacoes = especificacoes;
         this.validade = validade;
     }
-
+    
+    public String getValidade(){
+        return validade;
+    }
+    public void setValidade(String validade){
+        this.validade = validade;
+    }
     public int getIdAlimento() {
         return idAlimento;
     }
@@ -60,4 +66,6 @@ public class Alimento /*implements Cloneable*/ {
     public void setEspecificacoes(String especificacoes) {
         this.especificacoes = especificacoes;
     }
+
+   
 }

@@ -8,18 +8,21 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
 import java.util.*
 
-class Vermelho(private val date: Calendar) : DayViewDecorator{
+class Vermelho(private val dates: MutableList<CalendarDay>) : DayViewDecorator {
+
     override fun shouldDecorate(day: CalendarDay): Boolean {
-        // Verifica se o dia do calendário coincide com a data especificada
-        val calendar = Calendar.getInstance()
-        calendar.time = day.date
-        return calendar.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
-                calendar.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
-                calendar.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)
+        return dates.contains(day)
     }
 
     override fun decorate(view: DayViewFacade) {
-        // Adiciona um ponto vermelho ao dia
-        view.addSpan(LineSpan(Color.RED, 3f, 50f)) // Altere para BackgroundSpan se quiser alterar o fundo
+        view.addSpan(LineSpan(Color.RED, 3f, 50f)) // Linha vermelha com largura 50f
+    }
+
+    fun addDate(date: CalendarDay) {
+        dates.add(date)
+    }
+
+    fun removeDate(date: CalendarDay) {
+        dates.remove(date)
     }
 }

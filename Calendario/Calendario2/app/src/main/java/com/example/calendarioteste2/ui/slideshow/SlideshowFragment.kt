@@ -1,43 +1,48 @@
 package com.example.calendarioteste2.ui.slideshow
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.calendarioteste2.databinding.FragmentSlideshowBinding
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.util.Calendar
 
 class SlideshowFragment : Fragment() {
 
     private var _binding: FragmentSlideshowBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var calendarView: MaterialCalendarView
+    private val redDays = mutableListOf<CalendarDay>()
+    private lateinit var vermelhoDecorator: Vermelho
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
+        val slideshowViewModel = ViewModelProvider(this).get(SlideshowViewModel::class.java)
 
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Obtenha o calendário
-        val calendarView = binding.calendarView
+        // Inicialize calendarView
+        calendarView = binding.calendarView
 
-        // Defina o dia específico que deseja marcar
-        val specificDate = Calendar.getInstance()
-        specificDate.set(2024, Calendar.SEPTEMBER, 10) // Defina o ano, mês e dia desejado (exemplo: 10 de setembro de 2024)
+        vermelhoDecorator = Vermelho(redDays)
+        calendarView.addDecorator(vermelhoDecorator)
 
-        // Adicione o decorador ao MaterialCalendarView
-        calendarView.addDecorator(Vermelho(specificDate))
+        // Configure o listener para o clique em datas
+        calendarView.setOnDateChangedListener { widget, date, selected ->
+            if (selected) {
+                handleDateClick(date)
+            }
+        }
 
         return root
     }
@@ -45,5 +50,29 @@ class SlideshowFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun handleDateClick(date: CalendarDay) {
+        if (::calendarView.isInitialized) {
+            if (redDays.contains(date)) {
+                vermelhoDecorator.removeDate(date)
+            } else {
+                vermelhoDecorator.addDate(date)
+            }
+            calendarView.invalidateDecorators() // Atualize a visualização do calendário
+
+            // Exiba o diálogo com as informações do dia
+            showDateInfoDialog(date)
+        }
+    }
+
+    private fun showDateInfoDialog(date: CalendarDay) {
+        val message = "Você clicou em ${date.date.toString()}"
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Informações do Dia")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
     }
 }

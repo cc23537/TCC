@@ -4,10 +4,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.appcomida.ApiService
 import com.example.appcomida.R
+import com.example.appcomida.dataclass.alimento
 import com.example.appcomida.dataclass.user
 import getRetrofit
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.HttpException
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 import java.io.IOException
@@ -48,3 +54,5 @@ suspend fun registerUser(nome: String, email: String, password: String) {
         }
     }
 }
+
+

@@ -5,21 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.appcomida.databinding.FragmentSlideshowBinding
+import com.example.appcomida.dataclass.alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.DayViewDecorator
+import com.prolificinteractive.materialcalendarview.DayViewFacade
+import getRetrofit
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import com.example.appcomida.ApiService
 
 class SlideshowFragment : Fragment() {
 
     private var _binding: FragmentSlideshowBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
     private lateinit var calendarView: MaterialCalendarView
     private val redDays = mutableListOf<CalendarDay>()
     private lateinit var vermelhoDecorator: LinhaVermelha
@@ -41,8 +46,9 @@ class SlideshowFragment : Fragment() {
         vermelhoDecorator = LinhaVermelha(redDays)
         calendarView.addDecorator(vermelhoDecorator)
 
-        // Chama o metodo que chama a data
-        DataAPI()
+        // Busca os alimentos e atualiza o calendário
+        fetchAlimentoData()
+
         return root
     }
 
@@ -51,11 +57,31 @@ class SlideshowFragment : Fragment() {
         _binding = null
     }
 
-    private fun DataAPI() {
+    private fun fetchAlimentoData() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://seu-servidor-url/") // Substitua pela URL base da sua API
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = getRetrofit().create(ApiService::class.java)
 
-        val apiData = listOf("2024-09-15", "2024-09-18") // Aqui vai vim a data da api, uma ou mais
+        service.getAllAlimentos().enqueue(object : Callback<List<alimento>> {
+            override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { alimentos ->
+                        val apiData = alimentos.map { it.validade }
+                        updateCalendar(apiData)
+                    }
+                }
+            }
 
-        // Convertendo as strings recebidas para o tipo CalendarDay
+            override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
+                // Handle failure
+            }
+        })
+    }
+
+    private fun updateCalendar(apiData: List<String>) {
+        redDays.clear()
         apiData.forEach { dateString ->
             val dateParts = dateString.split("-")
             val year = dateParts[0].toInt()

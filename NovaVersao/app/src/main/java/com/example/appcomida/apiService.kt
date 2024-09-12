@@ -3,6 +3,7 @@ package com.example.appcomida
 import com.example.appcomida.dataclass.alimento
 import com.example.appcomida.dataclass.compra
 import com.example.appcomida.dataclass.user
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -23,6 +24,6 @@ interface ApiService {
     @POST("alimentos")
     suspend fun registroAlimentos(@Body alimento: alimento): Response<alimento>
 
-    @GET("alimentos")
-    suspend fun listagemArmario(): Response<List<alimento>>
+    @GET("/alimentos")
+    fun getAllAlimentos(): Call<List<alimento>>
 }

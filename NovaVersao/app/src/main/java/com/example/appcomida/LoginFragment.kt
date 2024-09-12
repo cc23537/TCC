@@ -45,11 +45,8 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val senha = binding.edtPassworld.text.toString()
-            if(email == "brc"){
-                (activity as MainActivity).navigateToMain()
-            }
 
-            //fetchData(email, senha)
+            fetchData(email, senha)
         }
         binding.btnReg.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_registroFragment)

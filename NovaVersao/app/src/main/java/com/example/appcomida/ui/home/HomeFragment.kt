@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.appcomida.R
 import com.example.appcomida.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -29,6 +31,13 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.sair.setOnClickListener(){
+            findNavController().navigate(R.id.action_nav_home_to_loginFragment2)
+        }
     }
 
     override fun onDestroyView() {

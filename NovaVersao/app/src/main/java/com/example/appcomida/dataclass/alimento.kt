@@ -1,5 +1,9 @@
 package com.example.appcomida.dataclass
 
 data class alimento(
-    val nomealimento: String
+    val idAlimento: Int,
+    val nomeAlimento: String,
+    val calorias: Double?,
+    val especificacoes: String?,
+    val validade: String
 )

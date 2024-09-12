@@ -26,35 +26,46 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicialmente, esconda o drawer e a toolbar
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        supportActionBar?.hide()
+        // Configurar a Toolbar
+        setSupportActionBar(binding.toolbar)
 
-        // Inicialmente, esconda o drawer e a toolbar
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        supportActionBar?.hide()
-
-        // Gerenciar a navegação
+        // Obter o NavHostFragment inicial (nav_host_start)
         val navHostStartFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_start) as NavHostFragment
 
+        // Obter o NavHostFragment principal (nav_host_mobile)
+        val navHostMobileFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_mobile) as NavHostFragment
+
+        // Configurar o AppBarConfiguration com todos os destinos de nível superior
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.nav_home, R.id.nav_list, R.id.nav_calendario, R.id.ajudaFragment2),
+            binding.drawerLayout
+        )
+
+        // Configure a Toolbar com o NavController correto (nav_host_mobile)
+        setupActionBarWithNavController(navHostMobileFragment.navController, appBarConfiguration)
+
+        // Configure o NavigationView com o NavController correto (nav_host_mobile)
+        binding.navView.setupWithNavController(navHostMobileFragment.navController)
+
+        // Listener para controlar a visibilidade do Toolbar e Drawer
         navHostStartFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.splashFragment, R.id.loginFragment -> {
-                    // Splash e Login não precisam de toolbar ou drawer
-                    binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    supportActionBar?.hide()
-                }
-
-                R.id.nav_home -> {
-                    // Tela principal deve mostrar a toolbar e o drawer
-                    binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                    supportActionBar?.show()
-                }
-
-
+                R.id.splashFragment, R.id.loginFragment -> hideToolbarAndDrawer()
+                else -> showToolbarAndDrawer()
             }
         }
+    }
+
+    private fun hideToolbarAndDrawer() {
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        supportActionBar?.hide()
+    }
+
+    private fun showToolbarAndDrawer() {
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        supportActionBar?.show()
     }
 
     fun navigateToMain() {
@@ -69,5 +80,12 @@ class MainActivity : AppCompatActivity() {
         val navHostMobileFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_mobile) as NavHostFragment
         navHostMobileFragment.navController.navigate(R.id.nav_home)
+
+        showToolbarAndDrawer()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_mobile)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

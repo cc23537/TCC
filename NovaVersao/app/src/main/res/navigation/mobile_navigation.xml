@@ -12,14 +12,19 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_list"
         android:name="com.example.appcomida.ui.lista.ListaFragment"
-        android:label="@string/menu_gallery"
+        android:label="Lista"
         tools:layout="@layout/fragment_lista" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_calendario"
         android:name="com.example.appcomida.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="Calendário"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/ajudaFragment2"
+        android:name="com.example.appcomida.AjudaFragment"
+        android:label="Ajude-nos"
+        tools:layout="@layout/fragment_ajuda" />
 </navigation>

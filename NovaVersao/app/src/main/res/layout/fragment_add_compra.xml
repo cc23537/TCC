@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtAddC" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txtData"
         android:layout_width="197dp"
         android:layout_height="33dp"
         android:layout_marginStart="36dp"
@@ -75,7 +75,7 @@
         app:circularflow_defaultRadius="10dp"
         app:circularflow_radiusInDP="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/txtData" />
 
     <TextView
         android:id="@+id/lblDescCompra"

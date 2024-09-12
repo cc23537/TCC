@@ -2,41 +2,40 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout5"
+    android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListarCompra">
-
+    tools:context=".AddAlimentosDialogFragment">
 
     <TextView
-        android:id="@+id/txtAddC"
+        android:id="@+id/txtAddAlimetos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
         android:layout_marginBottom="61dp"
         android:fontFamily="@font/allerta"
-        android:text="ADICIONAR COMPRAS"
+        android:text="ADICIONAR ALIMETOS"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtNomeAddAlimento"
+        app:layout_constraintBottom_toTopOf="@+id/txtNomeAlimento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtNomeAddAlimento"
+        android:id="@+id/txtNomeAlimento"
         android:layout_width="216dp"
         android:layout_height="0dp"
         android:layout_marginBottom="1dp"
         android:fontFamily="@font/acme"
         android:text="NOME DA COMPRA"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtNomeAddCompra"
-        app:layout_constraintStart_toStartOf="@+id/edtNomeAddCompra"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddC" />
+        app:layout_constraintBottom_toTopOf="@+id/edtNomeAddAlimento"
+        app:layout_constraintStart_toStartOf="@+id/edtNomeAddAlimento"
+        app:layout_constraintTop_toBottomOf="@+id/txtAddAlimetos" />
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edtNomeAddCompra"
+        android:id="@+id/edtNomeAddAlimento"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="36dp"
@@ -52,19 +51,19 @@
         app:layout_constraintBottom_toTopOf="@+id/txtData"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeAddAlimento" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeAlimento" />
 
     <TextView
         android:id="@+id/txtData"
-        android:layout_width="197dp"
-        android:layout_height="0dp"
+        android:layout_width="196dp"
+        android:layout_height="26dp"
         android:layout_marginBottom="2dp"
         android:fontFamily="@font/acme"
         android:text="DATA DA COMPRA"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/edtDataCompra"
-        app:layout_constraintStart_toStartOf="@+id/edtNomeAddCompra"
-        app:layout_constraintTop_toBottomOf="@+id/edtNomeAddCompra" />
+        app:layout_constraintStart_toStartOf="@+id/edtNomeAddAlimento"
+        app:layout_constraintTop_toBottomOf="@+id/edtNomeAddAlimento" />
 
     <EditText
         android:id="@+id/edtDataCompra"

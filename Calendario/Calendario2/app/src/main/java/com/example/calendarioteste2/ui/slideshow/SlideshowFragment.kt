@@ -37,42 +37,34 @@ class SlideshowFragment : Fragment() {
         vermelhoDecorator = Vermelho(redDays)
         calendarView.addDecorator(vermelhoDecorator)
 
-        // Configure o listener para o clique em datas
-        calendarView.setOnDateChangedListener { widget, date, selected ->
-            if (selected) {
-                handleDateClick(date)
-            }
-        }
+        // Chama a função que buscar as datas da API
+        DataAPI()
 
         return root
+    }
+
+    private fun DataAPI() {
+
+        val apiDates = listOf("2024-09-15", "2024-09-18") // Exemplo de datas recebidas
+
+        // Convertendo as strings recebidas para o tipo CalendarDay
+        apiDates.forEach { dateString ->
+            val dateParts = dateString.split("-")
+            val year = dateParts[0].toInt()
+            val month = dateParts[1].toInt() - 1 // CalendarDay usa mês de 0 a 11
+            val day = dateParts[2].toInt()
+            val calendarDay = CalendarDay.from(year, month, day)
+
+            // Adiciona a data recebida à lista de dias vermelhos
+            redDays.add(calendarDay)
+        }
+
+        // Atualiza o decorador
+        calendarView.invalidateDecorators()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun handleDateClick(date: CalendarDay) {
-        if (::calendarView.isInitialized) {
-            if (redDays.contains(date)) {
-                vermelhoDecorator.removeDate(date)
-            } else {
-                vermelhoDecorator.addDate(date)
-            }
-            calendarView.invalidateDecorators() // Atualize a visualização do calendário
-
-            // Exiba o diálogo com as informações do dia
-            showDateInfoDialog(date)
-        }
-    }
-
-    private fun showDateInfoDialog(date: CalendarDay) {
-        val message = "Você clicou em ${date.date.toString()}"
-
-        AlertDialog.Builder(requireContext())
-            .setTitle("Informações do Dia")
-            .setMessage(message)
-            .setPositiveButton("OK", null)
-            .show()
     }
 }

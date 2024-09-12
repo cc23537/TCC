@@ -5,7 +5,7 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.appcomida.ApiService
 import com.example.appcomida.R
 import com.example.appcomida.dataclass.user
-import com.example.appcomida.getRetrofit
+import getRetrofit
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 

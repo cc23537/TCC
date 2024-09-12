@@ -22,19 +22,19 @@ class ListaComprasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listViewAlimentos = view.findViewById(R.id.listViewAlimentos)
+        //listViewAlimentos = view.findViewById(R.id.listViewAlimentos)
 
         // Dados de exemplo
         val alimentos = listOf("Maçã", "Banana", "Laranja")
 
         // Usando ArrayAdapter para preencher o ListView
-        val adapter = ArrayAdapter(
+        /*val adapter = ArrayAdapter(
             requireContext(),
             R.layout.item_alimento,
             R.id.itemNome,
             alimentos
         )
 
-        listViewAlimentos.adapter = adapter
+        listViewAlimentos.adapter = adapter*/
     }
 }

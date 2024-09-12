@@ -92,7 +92,7 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8081/")
+            .baseUrl("http://10.0.2.2:8085/")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

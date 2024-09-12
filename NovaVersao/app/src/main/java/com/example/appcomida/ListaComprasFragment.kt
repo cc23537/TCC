@@ -27,7 +27,7 @@ class ListaComprasFragment : Fragment() {
         // Dados de exemplo
         val alimentos = listOf("Maçã", "Banana", "Laranja")
 
-        // Usando ArrayAdapter para preencher o ListView
+        //Usando ArrayAdapter para preencher o ListView
         /*val adapter = ArrayAdapter(
             requireContext(),
             R.layout.item_alimento,

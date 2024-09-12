@@ -16,6 +16,8 @@ public class Compras /*implements Cloneable*/{
     @Column(nullable = false)
     private int quantidade;
 
+    public Compras(){}
+
     public Compras(int idCompra, String alimentoASerComprado, int quantidade) {
         this.idCompra = idCompra;
         this.alimentoASerComprado = alimentoASerComprado;

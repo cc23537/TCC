@@ -66,6 +66,7 @@ public class Alimento /*implements Cloneable*/ {
     public void setEspecificacoes(String especificacoes) {
         this.especificacoes = especificacoes;
     }
+   
 
    
 }

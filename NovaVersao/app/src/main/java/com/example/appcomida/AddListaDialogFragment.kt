@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import com.example.appcomida.api.registerCompra
 import com.example.appcomida.api.registerUser
 import com.example.appcomida.databinding.FragmentAddListaDialogBinding
 import kotlinx.coroutines.launch
@@ -39,14 +40,17 @@ class AddListaDialogFragment : DialogFragment() {
             val nomeCompra = binding.edtNomeAddCompra.text.toString()
             val dataCompra = binding.edtDataCompra.text.toString()
             val descCompra = binding.edtDescCompra.text.toString()
+            val desc = descCompra.toInt()
 
 
             lifecycleScope.launch {
-                registerUser(nomeCompra, dataCompra, descCompra)
+                try {
+                    registerCompra(nomeCompra,  desc)
+                } catch (e: Exception) {
+                    // Handle the exception
+                }
+                dismiss()
             }
-
-
-            dismiss()
         }
     }
 

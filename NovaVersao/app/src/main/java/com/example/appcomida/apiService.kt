@@ -3,9 +3,11 @@ package com.example.appcomida
 import com.example.appcomida.dataclass.alimento
 import com.example.appcomida.dataclass.compra
 import com.example.appcomida.dataclass.user
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
+import java.sql.Date
 
 interface ApiService {
 
@@ -26,4 +28,7 @@ interface ApiService {
 
     @GET("/alimentos")
     fun getAllAlimentos(): Call<List<alimento>>
+
+    @GET("alimentos/{date}")
+    suspend fun data(@Path("date") date: CalendarDay): Response<List<alimento>>
 }

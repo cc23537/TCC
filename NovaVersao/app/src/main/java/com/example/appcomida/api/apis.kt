@@ -3,6 +3,7 @@ package com.example.appcomida.api
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.appcomida.ApiService
+import com.example.appcomida.MainActivity
 import com.example.appcomida.R
 import com.example.appcomida.dataclass.alimento
 import com.example.appcomida.dataclass.compra
@@ -18,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 import java.io.IOException
+import java.sql.Date
 
 
 suspend fun registerUser(nome: String, email: String, password: String) {
@@ -91,5 +93,7 @@ suspend fun registerCompra(nome: String, qntde: Int) {
         }
     }
 }
+
+
 
 

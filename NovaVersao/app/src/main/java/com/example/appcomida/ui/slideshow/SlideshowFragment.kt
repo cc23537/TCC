@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.appcomida.AddAlimentosDialogFragment
+import com.example.appcomida.AddListaDialogFragment
 import com.example.appcomida.databinding.FragmentSlideshowBinding
 import com.example.appcomida.dataclass.alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -42,7 +44,6 @@ class SlideshowFragment : Fragment() {
 
         // Inicialize calendarView
         calendarView = binding.calendarView
-
         vermelhoDecorator = LinhaVermelha(redDays)
         calendarView.addDecorator(vermelhoDecorator)
 
@@ -58,10 +59,6 @@ class SlideshowFragment : Fragment() {
     }
 
     private fun fetchAlimentoData() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://seu-servidor-url/") // Substitua pela URL base da sua API
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
         val service = getRetrofit().create(ApiService::class.java)
 
         service.getAllAlimentos().enqueue(object : Callback<List<alimento>> {
@@ -105,5 +102,13 @@ class SlideshowFragment : Fragment() {
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.floatingAddAlimentos.setOnClickListener{
+            val add = AddAlimentosDialogFragment()
+            add.show(parentFragmentManager, "AddDialog")
+
+        }
     }
 }

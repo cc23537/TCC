@@ -36,6 +36,8 @@ class AddListaDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        isCancelable = true
+
         binding.btnAddC.setOnClickListener {
             val nomeCompra = binding.edtNomeAddCompra.text.toString()
             val dataCompra = binding.edtDataCompra.text.toString()

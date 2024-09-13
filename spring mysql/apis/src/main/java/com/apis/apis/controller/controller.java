@@ -79,6 +79,7 @@ public class controller {
         Alimento obj = alimentoRepository.findByIdAlimento(codigo);
         alimentoRepository.delete(obj);
     }
+    
 
     // Compras
 

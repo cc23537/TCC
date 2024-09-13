@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.appcomida.AddAlimentosDialogFragment
+import com.example.appcomida.AddListaDialogFragment
 import com.example.appcomida.databinding.FragmentSlideshowBinding
 import com.example.appcomida.dataclass.alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -100,5 +102,13 @@ class SlideshowFragment : Fragment() {
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.floatingAddAlimentos.setOnClickListener{
+            val add = AddAlimentosDialogFragment()
+            add.show(parentFragmentManager, "AddDialog")
+
+        }
     }
 }

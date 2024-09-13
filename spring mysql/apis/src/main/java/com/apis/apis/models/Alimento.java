@@ -22,6 +22,10 @@ public class Alimento /*implements Cloneable*/ {
     @Column(nullable = true)
     private String validade;
 
+    public Alimento(){
+        
+    }
+
     public Alimento(String nomeAlimento, Double calorias, String especificacoes, String validade) {
         this.nomeAlimento = nomeAlimento;
         this.calorias = calorias;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.apis.apis.models.Alimento;
@@ -13,8 +14,6 @@ import com.apis.apis.models.Compras;
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
 import com.apis.apis.repository.ComprasRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -70,9 +69,10 @@ public class controller {
         return alimentoRepository.findAll();
     }
     @GetMapping("/alimentos/{validade}")
-    public Alimento pelaData(@PathVariable String validade){
+    public List<Alimento> pelaData(@PathVariable String validade){
        return alimentoRepository.findByValidade(validade);
     }
+   
     
     @PostMapping("/alimentos")
     public Alimento cadastrar(@RequestBody Alimento a){

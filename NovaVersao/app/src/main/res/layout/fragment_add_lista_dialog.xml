@@ -49,13 +49,13 @@
         android:typeface="serif"
         app:circularflow_defaultRadius="10dp"
         app:circularflow_radiusInDP="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtData"
+        app:layout_constraintBottom_toTopOf="@+id/txtCalorias"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeAddAlimento" />
 
     <TextView
-        android:id="@+id/txtData"
+        android:id="@+id/txtCalorias"
         android:layout_width="197dp"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
@@ -80,11 +80,11 @@
         app:circularflow_radiusInDP="50dp"
         app:layout_constraintBottom_toTopOf="@+id/edtDescCompra"
         app:layout_constraintEnd_toEndOf="@+id/edtDescCompra"
-        app:layout_constraintStart_toStartOf="@+id/txtData"
-        app:layout_constraintTop_toBottomOf="@+id/txtData" />
+        app:layout_constraintStart_toStartOf="@+id/txtCalorias"
+        app:layout_constraintTop_toBottomOf="@+id/txtCalorias" />
 
     <TextView
-        android:id="@+id/lblDescCompra"
+        android:id="@+id/txtEspecific"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginTop="68dp"
@@ -94,9 +94,9 @@
         android:text="DESCRIÇÃO"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnAddC"
-        app:layout_constraintEnd_toEndOf="@+id/txtData"
+        app:layout_constraintEnd_toEndOf="@+id/txtCalorias"
         app:layout_constraintStart_toStartOf="@+id/edtDescCompra"
-        app:layout_constraintTop_toBottomOf="@+id/txtData" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCalorias" />
 
     <EditText
         android:id="@+id/edtDescCompra"

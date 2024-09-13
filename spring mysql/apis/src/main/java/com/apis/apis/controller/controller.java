@@ -69,6 +69,10 @@ public class controller {
     public List<Alimento> retornaTodosAlimentos(){
         return alimentoRepository.findAll();
     }
+    @GetMapping("/alimentos/{validade}")
+    public Alimento pelaData(@PathVariable String validade){
+       return alimentoRepository.findByValidade(validade);
+    }
     
     @PostMapping("/alimentos")
     public Alimento cadastrar(@RequestBody Alimento a){

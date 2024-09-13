@@ -14,6 +14,10 @@ import com.apis.apis.models.Compras;
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
 import com.apis.apis.repository.ComprasRepository;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -77,6 +81,14 @@ public class controller {
     @PostMapping("/alimentos")
     public Alimento cadastrar(@RequestBody Alimento a){
         return alimentoRepository.save(a);
+    }
+    @PutMapping("alimentos/{codigo}")
+    public Alimento atualizarAlimento(@RequestBody Alimento a,@PathVariable int codigo) {
+        Alimento obj = alimentoRepository.findByIdAlimento(codigo);
+        alimentoRepository.delete(obj);
+
+        
+       return alimentoRepository.save(a);
     }
     @DeleteMapping("/alimentos/{codigo}")
     public void removerAlimento(@PathVariable int codigo){

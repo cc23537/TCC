@@ -1,6 +1,8 @@
 package com.example.appcomida.ui.slideshow
 
+import android.R
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,20 +10,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.appcomida.AddAlimentosDialogFragment
-import com.example.appcomida.AddListaDialogFragment
+import com.example.appcomida.ApiService
 import com.example.appcomida.databinding.FragmentSlideshowBinding
 import com.example.appcomida.dataclass.alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.DayViewDecorator
-import com.prolificinteractive.materialcalendarview.DayViewFacade
 import getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import com.example.appcomida.ApiService
+
 
 class SlideshowFragment : Fragment() {
 
@@ -41,6 +39,8 @@ class SlideshowFragment : Fragment() {
 
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        
+
 
         // Inicialize calendarView
         calendarView = binding.calendarView

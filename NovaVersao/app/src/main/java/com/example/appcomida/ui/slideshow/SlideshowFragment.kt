@@ -105,9 +105,27 @@ class SlideshowFragment : Fragment() {
             override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
-                        val message = alimentos.joinToString("\n") { it.toString() }
+                        // Filtra os alimentos com validade correspondente à data selecionada
+                        val alimentosNoDia = alimentos.filter { alimento ->
+                            val dateParts = alimento.validade.split("-")
+                            val year = dateParts[0].toInt()
+                            val month = dateParts[1].toInt() - 1 // CalendarDay usa meses de 0-11
+                            val day = dateParts[2].toInt()
+
+                            val validadeDate = CalendarDay.from(year, month, day)
+                            validadeDate == date
+                        }
+
+                        // Gera a mensagem a ser exibida com os alimentos filtrados
+                        val message = if (alimentosNoDia.isNotEmpty()) {
+                            alimentosNoDia.joinToString("\n") { it.toString() }
+                        } else {
+                            "Nenhum alimento registrado para esta data."
+                        }
+
+                        // Exibe o diálogo com os alimentos filtrados
                         AlertDialog.Builder(requireContext())
-                            .setTitle("Alimentos")
+                            .setTitle("Alimentos no dia ${date.day}/${date.month + 1}/${date.year}")
                             .setMessage(message)
                             .setPositiveButton(android.R.string.ok, null)
                             .show()

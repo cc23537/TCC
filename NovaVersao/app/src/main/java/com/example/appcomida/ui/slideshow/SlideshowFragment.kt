@@ -115,9 +115,21 @@ class SlideshowFragment : Fragment() {
                             validadeDate == date
                         }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                         val message = if (alimentosNoDia.isNotEmpty()) {
-                            alimentosNoDia.joinToString("\n") { it.toString() }
+                            alimentosNoDia.joinToString("\n") { alimento ->
+                                """
+                                    
+                               
+                            ➡️ **NOME**: ${alimento.nomeAlimento}
+                            🔥 CALORIAS: ${alimento.calorias} kcal
+                            📝 ESPECIFICAÇÕES: ${alimento.especificacoes}
+                            🗓️ VALIDADE: ${alimento.validade}
+                            """.trimIndent()
+                            }
                         } else {
                             "Nenhum alimento registrado para esta data."
                         }

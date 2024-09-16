@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.example.appcomida.ApiService
 import getRetrofit
 
-// Assuming you have this method somewhere
+
 
 
 class SlideshowFragment : Fragment() {
@@ -44,12 +44,12 @@ class SlideshowFragment : Fragment() {
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Initialize calendarView
+
         calendarView = binding.calendarView
         vermelhoDecorator = LinhaVermelha(redDays)
         calendarView.addDecorator(vermelhoDecorator)
 
-        // Fetch food data and update calendar
+
         fetchAlimentoData()
 
         return root
@@ -71,12 +71,12 @@ class SlideshowFragment : Fragment() {
                         updateCalendar(apiData)
                     }
                 } else {
-                    // Handle API error response
+
                 }
             }
 
             override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
-                // Handle request failure
+
             }
         })
     }
@@ -86,15 +86,14 @@ class SlideshowFragment : Fragment() {
         apiData.forEach { dateString ->
             val dateParts = dateString.split("-")
             val year = dateParts[0].toInt()
-            val month = dateParts[1].toInt() - 1 // CalendarDay uses 0-11 for months
+            val month = dateParts[1].toInt() - 1
             val day = dateParts[2].toInt()
             val calendarDay = CalendarDay.from(year, month, day)
 
-            // Add the received date to the list of red days
+
             redDays.add(calendarDay)
         }
 
-        // Update the decorator
         calendarView.invalidateDecorators()
     }
 
@@ -105,25 +104,25 @@ class SlideshowFragment : Fragment() {
             override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
-                        // Filtra os alimentos com validade correspondente à data selecionada
+
                         val alimentosNoDia = alimentos.filter { alimento ->
                             val dateParts = alimento.validade.split("-")
                             val year = dateParts[0].toInt()
-                            val month = dateParts[1].toInt() - 1 // CalendarDay usa meses de 0-11
+                            val month = dateParts[1].toInt() - 1
                             val day = dateParts[2].toInt()
 
                             val validadeDate = CalendarDay.from(year, month, day)
                             validadeDate == date
                         }
 
-                        // Gera a mensagem a ser exibida com os alimentos filtrados
+
                         val message = if (alimentosNoDia.isNotEmpty()) {
                             alimentosNoDia.joinToString("\n") { it.toString() }
                         } else {
                             "Nenhum alimento registrado para esta data."
                         }
 
-                        // Exibe o diálogo com os alimentos filtrados
+
                         AlertDialog.Builder(requireContext())
                             .setTitle("Alimentos no dia ${date.day}/${date.month + 1}/${date.year}")
                             .setMessage(message)
@@ -131,12 +130,12 @@ class SlideshowFragment : Fragment() {
                             .show()
                     }
                 } else {
-                    // Handle API error response
+
                 }
             }
 
             override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
-                // Handle request failure
+
             }
         })
     }
@@ -154,7 +153,7 @@ class SlideshowFragment : Fragment() {
 
     private fun handleDateClick(date: CalendarDay) {
         if (::calendarView.isInitialized) {
-            // Display dialog with information for the selected date
+
             showDateInfoDialog(date)
         }
     }

@@ -62,12 +62,12 @@ class SlideshowFragment : Fragment() {
                         updateCalendar(apiData)
                     }
                 } else {
-                    // Handle response failure
+
                 }
             }
 
             override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
-                // Handle network failure
+
             }
         })
     }
@@ -75,10 +75,10 @@ class SlideshowFragment : Fragment() {
     private fun updateCalendar(apiData: List<String>) {
         redDays.clear()
         apiData.forEach { dateString ->
-            // Check if dateString is null before splitting
-            val safeDateString = dateString ?: ""
+
+            val safeDateString = dateString
             val dateParts = safeDateString.split("-")
-            if (dateParts.size == 3) { // Ensure the split operation resulted in the expected parts
+            if (dateParts.size == 3) {
                 val year = dateParts[0].toIntOrNull() ?: 0
                 val month = (dateParts[1].toIntOrNull() ?: 0) - 1
                 val day = dateParts[2].toIntOrNull() ?: 0
@@ -98,7 +98,7 @@ class SlideshowFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
                         val alimentosNoDia = alimentos.filter { alimento ->
-                            // Handle nullable validade
+
                             val dateString = alimento.validade
                             val dateParts = dateString?.split("-") ?: emptyList()
                             if (dateParts.size == 3) {
@@ -126,12 +126,12 @@ class SlideshowFragment : Fragment() {
                             .show()
                     }
                 } else {
-                    // Handle response failure
+
                 }
             }
 
             override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
-                // Handle network failure
+
             }
         })
     }

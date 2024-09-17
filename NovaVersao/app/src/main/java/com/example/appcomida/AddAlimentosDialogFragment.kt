@@ -56,21 +56,21 @@ class AddAlimentosDialogFragment : DialogFragment() {
         }
     }
 
-    // Remove @RequiresApi annotation if targeting API level 26 and above
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun formatDateToISO(dateString: String): String? {
         return try {
-            // Define the format of the input date (adjust as necessary)
+            // o input
             val inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            // Define the output format
+            // o formato
             val outputFormatter = DateTimeFormatter.ISO_LOCAL_DATE
 
-            // Convert the string to LocalDate
+            // str pra date
             val date = LocalDate.parse(dateString, inputFormatter)
-            // Format LocalDate to ISO format
+            // formata
             date.format(outputFormatter)
         } catch (e: Exception) {
-            // Log the error or handle it as needed
+
             null
         }
     }

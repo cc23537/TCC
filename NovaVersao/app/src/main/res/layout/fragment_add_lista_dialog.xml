@@ -8,128 +8,102 @@
     tools:context=".ListarCompra">
 
 
-    <TextView
-        android:id="@+id/txtAddC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:layout_marginBottom="61dp"
-        android:fontFamily="@font/allerta"
-        android:text="ADICIONAR COMPRAS"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtNomeAddAlimento"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtNomeAddAlimento"
-        android:layout_width="216dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        android:fontFamily="@font/acme"
-        android:text="NOME DA COMPRA"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtNomeAddCompra"
-        app:layout_constraintStart_toStartOf="@+id/edtNomeAddCompra"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddC" />
-
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edtNomeAddCompra"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/border_rounded"
-        android:fontFamily="@font/adlam_display"
-        android:hint="Nome"
-        android:textSize="16sp"
-        android:typeface="serif"
-        app:circularflow_defaultRadius="10dp"
-        app:circularflow_radiusInDP="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtCalorias"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeAddAlimento" />
-
-    <TextView
-        android:id="@+id/txtCalorias"
-        android:layout_width="197dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
-        android:fontFamily="@font/acme"
-        android:text="DATA DA COMPRA"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtDataCompra"
-        app:layout_constraintStart_toStartOf="@+id/edtNomeAddCompra"
-        app:layout_constraintTop_toBottomOf="@+id/edtNomeAddCompra" />
-
-    <EditText
-        android:id="@+id/edtDataCompra"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="57dp"
-        android:background="@drawable/border_rounded"
-        android:fontFamily="@font/adlam_display"
-        android:hint="Data"
-        android:textSize="16sp"
-        android:typeface="serif"
-        app:circularflow_defaultRadius="10dp"
-        app:circularflow_radiusInDP="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/edtDescCompra"
-        app:layout_constraintEnd_toEndOf="@+id/edtDescCompra"
-        app:layout_constraintStart_toStartOf="@+id/txtCalorias"
-        app:layout_constraintTop_toBottomOf="@+id/txtCalorias" />
-
-    <TextView
-        android:id="@+id/txtEspecific"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="69dp"
-        android:fontFamily="@font/acme"
-        android:text="DESCRIÇÃO"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddC"
-        app:layout_constraintEnd_toEndOf="@+id/txtCalorias"
-        app:layout_constraintStart_toStartOf="@+id/edtDescCompra"
-        app:layout_constraintTop_toBottomOf="@+id/txtCalorias" />
-
-    <EditText
-        android:id="@+id/edtDescCompra"
-        android:layout_width="168dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="26dp"
-        android:background="@drawable/border_rounded"
-        android:fontFamily="@font/adlam_display"
-        android:hint="Qnt."
-        android:textSize="16sp"
-        android:typeface="serif"
-        app:circularflow_defaultRadius="10dp"
-        app:circularflow_radiusInDP="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddC"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtDataCompra" />
-
-    <Button
-        android:id="@+id/btnAddC"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="71dp"
-
-        android:layout_marginEnd="71dp"
-        android:layout_marginBottom="172dp"
-        android:background="@drawable/border_button"
-        android:fontFamily="@font/allerta"
-        android:text="ADICIONAR"
-        android:textSize="16sp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="305dp"
+        android:layout_height="419dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtDescCompra" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtAddC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/allerta"
+            android:gravity="center"
+            android:text="ADICIONAR COMPRAS"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtNomeAddAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
+            android:text="NOME DA COMPRA"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtDescCompra"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_rounded"
+            android:fontFamily="@font/adlam_display"
+            android:hint="Qnt."
+            android:textSize="16sp"
+            android:typeface="serif"
+            app:circularflow_defaultRadius="10dp"
+            app:circularflow_radiusInDP="50dp" />
+
+        <TextView
+            android:id="@+id/txtCalorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
+            android:text="DATA DA COMPRA"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtNomeAddCompra"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_rounded"
+            android:fontFamily="@font/adlam_display"
+            android:hint="Nome"
+            android:textSize="16sp"
+            android:typeface="serif"
+            app:circularflow_defaultRadius="10dp"
+            app:circularflow_radiusInDP="50dp" />
+
+        <TextView
+            android:id="@+id/txtEspecific"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
+            android:text="DESCRIÇÃO"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtDataCompra"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/border_rounded"
+            android:fontFamily="@font/adlam_display"
+            android:hint="Data"
+            android:textSize="16sp"
+            android:typeface="serif"
+            app:circularflow_defaultRadius="10dp"
+            app:circularflow_radiusInDP="50dp" />
+
+        <Button
+            android:id="@+id/btnAddC"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/border_button"
+            android:fontFamily="@font/allerta"
+            android:text="ADICIONAR"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

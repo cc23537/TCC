@@ -71,6 +71,15 @@ public class Alimento /*implements Cloneable*/ {
     public void setEspecificacoes(String especificacoes) {
         this.especificacoes = especificacoes;
     }
+    public String toString() {
+        return "Alimento{" +
+                "idAlimento=" + idAlimento +
+                ", nomeAlimento='" + nomeAlimento + '\'' +
+                ", calorias=" + calorias +
+                ", especificacoes='" + especificacoes + '\'' +
+                ", validade='" + validade + '\'' +
+                '}';
+    }
    
 
    

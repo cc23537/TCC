@@ -13,7 +13,7 @@ public fun getRetrofit(): Retrofit {
         .build()
 
     return Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8085/")
+        .baseUrl("http://10.0.2.2:8084/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())  // Adiciona o adaptador de corrotinas

@@ -93,6 +93,43 @@ suspend fun registerCompra(nome: String, qntde: Int) {
         }
     }
 }
+suspend fun registerAlimento(nome: String, cal: Double,esp:String,data:String) {
+    val alimento = alimento(nome,cal,esp,data)
+
+    // Directly using the IO dispatcher
+    try {
+        val apiService = getRetrofit().create(ApiService::class.java)
+        val response = withContext(Dispatchers.IO) { apiService.registroAlimentos(alimento) }
+
+        // Handle the response on the Main dispatcher
+        withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                val alimentoR = response.body()
+                println("Registered Alimento: $alimentoR") // Debug log
+            } else {
+                val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
+                println(errorMessage) // Debug log
+            }
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+        withContext(Dispatchers.Main) {
+            println("IOException: ${e.message}") // Debug log
+        }
+    } catch (e: HttpException) {
+        e.printStackTrace()
+        withContext(Dispatchers.Main) {
+            println("HttpException: ${e.message()}") // Debug log
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        withContext(Dispatchers.Main) {
+            println("Exception: ${e.message}") // Debug log
+        }
+    }
+}
+
+
 
 
 

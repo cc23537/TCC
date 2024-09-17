@@ -21,7 +21,7 @@ interface ApiService {
     suspend fun registroCompras(@Body compra: compra): Response<compra>
 
     @GET("compras")
-    suspend fun listagemCompras(): Response<List<compra>>
+    fun listagemCompras(): Call<List<compra>>
 
     @POST("alimentos")
     suspend fun registroAlimentos(@Body alimento: alimento): Response<alimento>

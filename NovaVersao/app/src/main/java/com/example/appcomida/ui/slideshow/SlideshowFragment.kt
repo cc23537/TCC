@@ -12,18 +12,11 @@ import com.example.appcomida.databinding.FragmentSlideshowBinding
 import com.example.appcomida.dataclass.alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.DayViewDecorator
-import com.prolificinteractive.materialcalendarview.DayViewFacade
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import com.example.appcomida.ApiService
 import getRetrofit
-
-
-
 
 class SlideshowFragment : Fragment() {
 
@@ -44,11 +37,9 @@ class SlideshowFragment : Fragment() {
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
         calendarView = binding.calendarView
         vermelhoDecorator = LinhaVermelha(redDays)
         calendarView.addDecorator(vermelhoDecorator)
-
 
         fetchAlimentoData()
 
@@ -67,16 +58,16 @@ class SlideshowFragment : Fragment() {
             override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
-                        val apiData = alimentos.map { it.validade }
+                        val apiData: List<String> = alimentos.mapNotNull { it.validade }
                         updateCalendar(apiData)
                     }
                 } else {
-
+                    // Handle response failure
                 }
             }
 
             override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
-
+                // Handle network failure
             }
         })
     }
@@ -84,16 +75,18 @@ class SlideshowFragment : Fragment() {
     private fun updateCalendar(apiData: List<String>) {
         redDays.clear()
         apiData.forEach { dateString ->
-            val dateParts = dateString.split("-")
-            val year = dateParts[0].toInt()
-            val month = dateParts[1].toInt() - 1
-            val day = dateParts[2].toInt()
-            val calendarDay = CalendarDay.from(year, month, day)
+            // Check if dateString is null before splitting
+            val safeDateString = dateString ?: ""
+            val dateParts = safeDateString.split("-")
+            if (dateParts.size == 3) { // Ensure the split operation resulted in the expected parts
+                val year = dateParts[0].toIntOrNull() ?: 0
+                val month = (dateParts[1].toIntOrNull() ?: 0) - 1
+                val day = dateParts[2].toIntOrNull() ?: 0
+                val calendarDay = CalendarDay.from(year, month, day)
 
-
-            redDays.add(calendarDay)
+                redDays.add(calendarDay)
+            }
         }
-
         calendarView.invalidateDecorators()
     }
 
@@ -104,24 +97,27 @@ class SlideshowFragment : Fragment() {
             override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
-
                         val alimentosNoDia = alimentos.filter { alimento ->
-                            val dateParts = alimento.validade.split("-")
-                            val year = dateParts[0].toInt()
-                            val month = dateParts[1].toInt() - 1
-                            val day = dateParts[2].toInt()
+                            // Handle nullable validade
+                            val dateString = alimento.validade
+                            val dateParts = dateString?.split("-") ?: emptyList()
+                            if (dateParts.size == 3) {
+                                val year = dateParts[0].toIntOrNull() ?: 0
+                                val month = dateParts[1].toIntOrNull()?.minus(1) ?: 0
+                                val day = dateParts[2].toIntOrNull() ?: 0
 
-                            val validadeDate = CalendarDay.from(year, month, day)
-                            validadeDate == date
+                                val validadeDate = CalendarDay.from(year, month, day)
+                                validadeDate == date
+                            } else {
+                                false
+                            }
                         }
-
 
                         val message = if (alimentosNoDia.isNotEmpty()) {
                             alimentosNoDia.joinToString("\n") { it.toString() }
                         } else {
                             "Nenhum alimento registrado para esta data."
                         }
-
 
                         AlertDialog.Builder(requireContext())
                             .setTitle("Alimentos no dia ${date.day}/${date.month + 1}/${date.year}")
@@ -130,20 +126,22 @@ class SlideshowFragment : Fragment() {
                             .show()
                     }
                 } else {
-
+                    // Handle response failure
                 }
             }
 
             override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
-
+                // Handle network failure
             }
         })
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.floatingAddAlimentos.setOnClickListener {
             val add = AddAlimentosDialogFragment()
             add.show(parentFragmentManager, "AddDialog")
+            recarregarFragment()
         }
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
@@ -153,8 +151,14 @@ class SlideshowFragment : Fragment() {
 
     private fun handleDateClick(date: CalendarDay) {
         if (::calendarView.isInitialized) {
-
             showDateInfoDialog(date)
+        }
+    }
+    private fun recarregarFragment() {
+        parentFragmentManager.beginTransaction().apply {
+            detach(this@SlideshowFragment)
+            attach(this@SlideshowFragment)
+            commit()
         }
     }
 }

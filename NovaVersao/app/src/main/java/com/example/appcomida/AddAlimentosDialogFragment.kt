@@ -38,6 +38,11 @@ class AddAlimentosDialogFragment : DialogFragment() {
 
         isCancelable = true
 
+        binding.btnFechar.setOnClickListener{
+            dismiss()
+        }
+
+
         binding.btnAdicionarAliemto.setOnClickListener {
             lifecycleScope.launch {
                 val nomeAlimento = binding.edtNomeAddAlimento.text.toString()
@@ -51,6 +56,9 @@ class AddAlimentosDialogFragment : DialogFragment() {
                     registerAlimento(nomeAlimento, calorias.toDouble(), especificacoes, formattedDate)
                 } catch (e: Exception) {
                 }
+
+                parentFragmentManager.setFragmentResult("addAlimentoRequest", Bundle())
+
                 dismiss()
             }
         }
@@ -74,4 +82,5 @@ class AddAlimentosDialogFragment : DialogFragment() {
             null
         }
     }
+
 }

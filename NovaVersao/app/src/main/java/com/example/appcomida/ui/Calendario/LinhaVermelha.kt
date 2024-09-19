@@ -1,4 +1,4 @@
-package com.example.appcomida.ui.slideshow
+package com.example.appcomida.ui.Calendario
 
 import android.graphics.Color
 import com.prolificinteractive.materialcalendarview.CalendarDay

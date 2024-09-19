@@ -1,4 +1,4 @@
-package com.example.appcomida.ui.slideshow
+package com.example.appcomida.ui.Calendario
 
 import android.graphics.Canvas
 import android.graphics.Paint

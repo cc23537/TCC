@@ -26,6 +26,7 @@ import java.time.Month
 import java.time.Year
 import java.time.temporal.ChronoUnit
 
+@RequiresApi(Build.VERSION_CODES.O) // Notação para pegar a data atual
 class CalendarioFragment : Fragment() {
 
     private var _binding: FragmentCalendarioBinding? = null
@@ -63,6 +64,7 @@ class CalendarioFragment : Fragment() {
         val service = getRetrofit().create(ApiService::class.java)
 
         service.getAllAlimentos().enqueue(object : Callback<List<alimento>> {
+
             override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
@@ -79,32 +81,29 @@ class CalendarioFragment : Fragment() {
             }
         })
     }
-
     private fun updateCalendar(apiData: List<String>) {
         redDays.clear()
         apiData.forEach { dateString ->
-
-            val safeDateString = dateString
-            val dateParts = safeDateString.split("-")
+            val dateParts = dateString.split("-")
             if (dateParts.size == 3) {
                 val year = dateParts[0].toIntOrNull() ?: 0
                 val month = (dateParts[1].toIntOrNull() ?: 0) - 1
                 val day = dateParts[2].toIntOrNull() ?: 0
                 val calendarDay = CalendarDay.from(year, month, day)
 
-                redDays.add(calendarDay)
+                val diasRestantes = diasFaltantes(year, month + 1, day)
+                if (diasRestantes >= 0) {
+                    redDays.add(calendarDay)
+                }
             }
         }
         calendarView.invalidateDecorators()
     }
-
-
     private fun showDateInfoDialog(date: CalendarDay) {
         val service = getRetrofit().create(ApiService::class.java)
 
         service.getAllAlimentos().enqueue(object : Callback<List<alimento>> {
 
-            @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
@@ -125,19 +124,24 @@ class CalendarioFragment : Fragment() {
 
                         val message = if (alimentosNoDia.isNotEmpty()) {
                             alimentosNoDia.joinToString("\n") { alimento ->
+                                val diasRestantes = diasFaltantes(date.year, (date.month + 1), date.day)
+                                val diasMensagem = if (diasRestantes < 0) {
+                                    "ESSE ALIMENTO JÁ VENCEU"
+                                } else {
+                                    "⏳ DIAS FALTANTES: $diasRestantes"
+                                }
+
                                 """
-                                                
                             ➡️ **NOME**: ${alimento.nomeAlimento}
                             🔥 CALORIAS: ${alimento.calorias} kcal
                             📝 ESPECIFICAÇÕES: ${alimento.especificacoes}
                             🗓️ VALIDADE: ${alimento.validade}
-                            ⏳ DIAS FALTANTES: ${diasFaltantes(date.year, (date.month+1), date.day)} 
+                            $diasMensagem
                             """.trimIndent()
                             }
                         } else {
                             "Nenhum alimento registrado para esta data."
                         }
-
 
                         AlertDialog.Builder(requireContext())
                             .setTitle("Alimentos no dia ${date.day}/${date.month + 1}/${date.year}")
@@ -145,18 +149,16 @@ class CalendarioFragment : Fragment() {
                             .setPositiveButton(android.R.string.ok, null)
                             .show()
                     }
-                } else {
-
                 }
             }
 
-            override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
 
+            override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
             }
+
+
         })
     }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -174,19 +176,16 @@ class CalendarioFragment : Fragment() {
             handleDateClick(date)
         }
     }
-
     private fun handleDateClick(date: CalendarDay) {
         if (::calendarView.isInitialized) {
             showDateInfoDialog(date)
         }
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)// Notação para pegar a data atual
     private fun diasFaltantes(year: Int, month: Int, day: Int): Long{
         val dataAtual: LocalDate = LocalDate.now()
         val dataValidade = LocalDate.of(year, month, day)
 
-        val diasRestantes = ChronoUnit.DAYS.between(dataAtual, dataValidade)
+        val diasRestantes = ChronoUnit.DAYS.between(dataAtual, dataValidade) // Calcula a Diferença de Dias
         return diasRestantes
     }
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.appcomida.api.registerAlimento
 import com.example.appcomida.databinding.FragmentAddAlimentosDialogBinding
 import kotlinx.coroutines.launch
+import java.io.Console
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -42,7 +43,6 @@ class AddAlimentosDialogFragment : DialogFragment() {
             dismiss()
         }
 
-
         binding.btnAdicionarAliemto.setOnClickListener {
             lifecycleScope.launch {
                 val nomeAlimento = binding.edtNomeAddAlimento.text.toString()
@@ -55,6 +55,7 @@ class AddAlimentosDialogFragment : DialogFragment() {
                     val formattedDate = formatDateToISO(validade) ?: "Invalid date"
                     registerAlimento(nomeAlimento, calorias.toDouble(), especificacoes, formattedDate)
                 } catch (e: Exception) {
+                    println(e)
                 }
 
                 parentFragmentManager.setFragmentResult("addAlimentoRequest", Bundle())

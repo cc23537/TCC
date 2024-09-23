@@ -132,12 +132,13 @@ class CalendarioFragment : Fragment() {
                                 }
 
                                 """
-                            ➡️ **NOME**: ${alimento.nomeAlimento}
-                            🔥 CALORIAS: ${alimento.calorias} kcal
-                            📝 ESPECIFICAÇÕES: ${alimento.especificacoes}
-                            🗓️ VALIDADE: ${alimento.validade}
-                            $diasMensagem
-                            """.trimIndent()
+                                    
+                                ➡️ **NOME**: ${alimento.nomeAlimento}
+                                🔥 CALORIAS: ${alimento.calorias} kcal
+                                📝 ESPECIFICAÇÕES: ${alimento.especificacoes}
+                                🗓️ VALIDADE: ${alimento.validade}
+                                $diasMensagem
+                                """.trimIndent()
                             }
                         } else {
                             "Nenhum alimento registrado para esta data."
@@ -147,6 +148,28 @@ class CalendarioFragment : Fragment() {
                             .setTitle("Alimentos no dia ${date.day}/${date.month + 1}/${date.year}")
                             .setMessage(message)
                             .setPositiveButton(android.R.string.ok, null)
+                            .setNeutralButton("Remover") { dialog, which ->
+                                val alimentosNomes = alimentosNoDia.map { it.nomeAlimento }.toTypedArray()
+
+                                AlertDialog.Builder(requireContext())
+                                    .setTitle("Selecione o alimento a remover")
+                                    .setItems(alimentosNomes) { _, selectedIndex ->
+                                        val alimentoSelecionado = alimentosNoDia[selectedIndex]
+
+                                        // Exibir outro dialog confirmando a remoção do alimento
+                                        AlertDialog.Builder(requireContext())
+                                            .setTitle("Confirmar remoção")
+                                            .setMessage("Deseja remover o alimento ${alimentoSelecionado.nomeAlimento}?")
+                                            .setPositiveButton("Sim") { _, _ ->
+                                                // Chame a função de remoção aqui
+                                                //removerAlimento(alimentoSelecionado)
+                                            }
+                                            .setNegativeButton("Não", null)
+                                            .show()
+                                    }
+                                    .setNegativeButton(android.R.string.cancel, null)
+                                    .show()
+                            }
                             .show()
                     }
                 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.appcomida.ApiService
 import com.example.appcomida.databinding.FragmentListaBinding
 import com.example.appcomida.dataclass.compra
+
 import getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +49,7 @@ class ListaFragment : Fragment() {
                 if (response.isSuccessful) {
                     val compras = response.body()
                     if (compras != null) {
-                        displayCompras(compras)
+                        binding.textView4.text = compras[0].alimentoASerComprado
                     }
                 } else {
                     showError("Erro ao obter dados")
@@ -59,13 +60,10 @@ class ListaFragment : Fragment() {
                 showError("Falha na solicitação: ${t.message}")
             }
         })
+
     }
 
-    private fun displayCompras(compras: List<compra>) {
-        // Configure o RecyclerView ou outro componente para exibir os dados
-        //val adapter = ComprasAdapter(compras)
-        //binding.rvAlimentos.adapter = adapter
-    }
+
 
     private fun showError(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -75,4 +73,6 @@ class ListaFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

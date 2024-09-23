@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val message = response.body()
                         println("Response Body: $message")
-                        saveLogin()
+                        //saveLogin()
                         //findNavController().navigate(R.id.action_loginFragment_to_nav_home)//action_loginFragment_to_nav_home
                         (activity as MainActivity).navigateToMain()
                     } else {

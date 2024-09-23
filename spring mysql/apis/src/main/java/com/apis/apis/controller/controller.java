@@ -14,9 +14,6 @@ import com.apis.apis.models.Compras;
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
 import com.apis.apis.repository.ComprasRepository;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -90,9 +87,10 @@ public class controller {
         
        return alimentoRepository.save(a);
     }
-    @DeleteMapping("/alimentos/{codigo}")
-    public void removerAlimento(@PathVariable int codigo){
-        Alimento obj = alimentoRepository.findByIdAlimento(codigo);
+    @DeleteMapping("/alimentos/{validade}/{nome}")
+    public void removerAlimento(@PathVariable String validade,@PathVariable String nome){
+
+        Alimento obj = alimentoRepository.findByNomeAlimentoAndValidade(validade,nome);
         alimentoRepository.delete(obj);
     }
     

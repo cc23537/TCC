@@ -15,6 +15,8 @@ public interface AlimentoRepository extends CrudRepository<Alimento, Integer>{
     List<Alimento> findAll();
 
     Alimento findByIdAlimento(int idAlimento);
+    Alimento findByNomeAlimento(String nomeAlimento);
+    Alimento findByNomeAlimentoAndValidade(String nomeAlimento,String validade);
 
     List<Alimento> findByValidade(String validade);
 

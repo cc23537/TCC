@@ -172,9 +172,7 @@ class CalendarioFragment : Fragment() {
                                                     removeAlimento(alimentoSelecionado.nomeAlimento, alimentoSelecionado.validade)
 
                                                 }
-                                                parentFragmentManager.setFragmentResultListener("addAlimentoRequest", this) { requestKey, bundle ->
-                                                    fetchAlimentoData()
-                                                }
+
                                             }
                                             .setNegativeButton("Não", null)
                                             .show()

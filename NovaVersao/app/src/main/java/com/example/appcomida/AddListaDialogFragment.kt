@@ -40,13 +40,10 @@ class AddListaDialogFragment : DialogFragment() {
 
         binding.btnAddC.setOnClickListener {
             lifecycleScope.launch {
-                val nomeCompra = binding.edtNomeAddCompra.text.toString()
-                val dataCompra = binding.edtDataCompra.text.toString()
-                val descCompra = binding.edtDescCompra.text.toString()
-                val desc = descCompra.toInt()
-
+                val nome = binding.edtDescCompra.text.toString()
+                val qtde = binding.edtDataCompra.text.toString().toInt()
                 try {
-                    registerCompra(nomeCompra,  desc)
+                    registerCompra(nome,  qtde)
                 } catch (e: Exception) {
                     // Handle the exception
                 }

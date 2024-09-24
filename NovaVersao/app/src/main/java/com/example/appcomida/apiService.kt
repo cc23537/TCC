@@ -31,4 +31,11 @@ interface ApiService {
 
     @GET("alimentos/{date}")
     suspend fun data(@Path("date") date: CalendarDay): Response<List<alimento>>
+
+
+    @DELETE("alimentos/{nome}/{date}")
+    suspend fun removeAlimento(
+        @Path("nome") nome: String,
+        @Path("date") date: String
+    ): Response<Void>
 }

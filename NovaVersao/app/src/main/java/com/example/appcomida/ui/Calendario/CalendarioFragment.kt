@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.appcomida.AddAlimentosDialogFragment
 import com.example.appcomida.dataclass.alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -17,13 +18,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.example.appcomida.ApiService
+import com.example.appcomida.api.removeAlimento
 import com.example.appcomida.databinding.FragmentCalendarioBinding
+
 import com.google.android.material.datepicker.DayViewDecorator
 import getRetrofit
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month
 import java.time.Year
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 @RequiresApi(Build.VERSION_CODES.O) // Notação para pegar a data atual
@@ -162,7 +167,14 @@ class CalendarioFragment : Fragment() {
                                             .setMessage("Deseja remover o alimento ${alimentoSelecionado.nomeAlimento}?")
                                             .setPositiveButton("Sim") { _, _ ->
                                                 // Chame a função de remoção aqui
-                                                //removerAlimento(alimentoSelecionado)
+
+                                                viewLifecycleOwner.lifecycleScope.launch {
+                                                    removeAlimento(alimentoSelecionado.nomeAlimento, alimentoSelecionado.validade)
+
+                                                }
+                                                parentFragmentManager.setFragmentResultListener("addAlimentoRequest", this) { requestKey, bundle ->
+                                                    fetchAlimentoData()
+                                                }
                                             }
                                             .setNegativeButton("Não", null)
                                             .show()
@@ -211,6 +223,24 @@ class CalendarioFragment : Fragment() {
         val diasRestantes = ChronoUnit.DAYS.between(dataAtual, dataValidade) // Calcula a Diferença de Dias
         return diasRestantes
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun formatDateToISO(dateString: String): String? {
+        return try {
+            // o input
+            val inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            // o formato
+            val outputFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+
+            // str pra date
+            val date = LocalDate.parse(dateString, inputFormatter)
+            // formata
+            date.format(outputFormatter)
+        } catch (e: Exception) {
+
+            null
+        }
+    }
 
 
 }
+

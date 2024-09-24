@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.appcomida.api.registerUser
@@ -46,8 +47,12 @@ class RegistroFragment : Fragment() {
             lifecycleScope.launch {
                 try {
                     registerUser(nome, email, password)
+                    findNavController().navigate(R.id.action_registroFragment_to_loginFragment)
+
+                    Toast.makeText(requireContext(), "Resgistro Feito com Sucesso!!", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
-                    // Handle the exception
+                    Toast.makeText(requireContext(), "Não foi possivel fazer o Registro", Toast.LENGTH_SHORT).show()
+                    println(e)
                 }
             }
         }

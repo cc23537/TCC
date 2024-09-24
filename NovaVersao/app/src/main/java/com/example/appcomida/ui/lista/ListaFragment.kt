@@ -42,6 +42,10 @@ class ListaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        parentFragmentManager.setFragmentResultListener("listaAlimentoRequest", this) { requestKey, bundle ->
+            fetchCompras()
+        }
+
         binding.rvAlimentos.layoutManager = LinearLayoutManager(requireContext())
 
         fetchCompras()

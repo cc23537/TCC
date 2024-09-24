@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="311dp"
-        android:layout_height="450dp"
+        android:layout_width="318dp"
+        android:layout_height="378dp"
         android:layout_marginStart="37dp"
         android:layout_marginEnd="37dp"
         android:orientation="vertical"
@@ -45,27 +45,6 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_rounded"
             android:fontFamily="@font/adlam_display"
-            android:hint="Qnt."
-            android:textSize="16sp"
-            android:typeface="serif"
-            app:circularflow_defaultRadius="10dp"
-            app:circularflow_radiusInDP="50dp" />
-
-        <TextView
-            android:id="@+id/txtCalorias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/acme"
-            android:text="DATA DA COMPRA"
-            android:textSize="20sp" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtNomeAddCompra"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/border_rounded"
-            android:fontFamily="@font/adlam_display"
             android:hint="Nome"
             android:textSize="16sp"
             android:typeface="serif"
@@ -73,21 +52,25 @@
             app:circularflow_radiusInDP="50dp" />
 
         <TextView
-            android:id="@+id/txtEspecific"
+            android:id="@+id/txtQnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
+<<<<<<< Updated upstream
             android:text="Quantidade"
+=======
+            android:text="QUNTIDADE"
+>>>>>>> Stashed changes
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtDataCompra"
+            android:id="@+id/edtQnt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="50dp"
             android:background="@drawable/border_rounded"
             android:fontFamily="@font/adlam_display"
-            android:hint="Data"
+            android:hint="Qnt."
             android:textSize="16sp"
             android:typeface="serif"
             app:circularflow_defaultRadius="10dp"

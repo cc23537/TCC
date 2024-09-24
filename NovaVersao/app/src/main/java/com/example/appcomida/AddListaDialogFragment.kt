@@ -40,8 +40,15 @@ class AddListaDialogFragment : DialogFragment() {
 
         binding.btnAddC.setOnClickListener {
             lifecycleScope.launch {
+<<<<<<< Updated upstream
                 val nome = binding.edtDescCompra.text.toString()
                 val qtde = binding.edtDataCompra.text.toString().toInt()
+=======
+                val nomeCompra = binding.edtDescCompra.text.toString()
+                val descCompra = binding.edtQnt.text.toString()
+                val desc = descCompra.toInt()
+
+>>>>>>> Stashed changes
                 try {
                     registerCompra(nome,  qtde)
                 } catch (e: Exception) {

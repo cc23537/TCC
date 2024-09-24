@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -58,6 +59,24 @@ class CalendarioFragment : Fragment() {
         fetchAlimentoData()
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Atualiza a pagina
+        parentFragmentManager.setFragmentResultListener("addAlimentoRequest", this) { requestKey, bundle ->
+            fetchAlimentoData()
+        }
+
+        binding.floatingAddAlimentos.setOnClickListener {
+            val add = AddAlimentosDialogFragment()
+            add.show(parentFragmentManager, "AddDialog")
+        }
+
+        calendarView.setOnDateChangedListener { widget, date, selected ->
+            handleDateClick(date)
+        }
     }
 
     override fun onDestroyView() {
@@ -161,16 +180,20 @@ class CalendarioFragment : Fragment() {
                                     .setItems(alimentosNomes) { _, selectedIndex ->
                                         val alimentoSelecionado = alimentosNoDia[selectedIndex]
 
-                                        // Exibir outro dialog confirmando a remoção do alimento
                                         AlertDialog.Builder(requireContext())
                                             .setTitle("Confirmar remoção")
                                             .setMessage("Deseja remover o alimento ${alimentoSelecionado.nomeAlimento}?")
                                             .setPositiveButton("Sim") { _, _ ->
-                                                // Chame a função de remoção aqui
-
                                                 viewLifecycleOwner.lifecycleScope.launch {
                                                     removeAlimento(alimentoSelecionado.nomeAlimento, alimentoSelecionado.validade)
 
+                                                    if (response.isSuccessful) {
+                                                        fetchAlimentoData()
+
+                                                        Toast.makeText(requireContext(), "Alimento removido com sucesso!", Toast.LENGTH_SHORT).show()
+                                                    } else {
+                                                        Toast.makeText(requireContext(), "Falha ao remover o alimento.", Toast.LENGTH_SHORT).show()
+                                                    }
                                                 }
 
                                             }
@@ -192,23 +215,7 @@ class CalendarioFragment : Fragment() {
 
         })
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        //Atualiza a pagina
-        parentFragmentManager.setFragmentResultListener("addAlimentoRequest", this) { requestKey, bundle ->
-            fetchAlimentoData()
-        }
-
-        binding.floatingAddAlimentos.setOnClickListener {
-            val add = AddAlimentosDialogFragment()
-            add.show(parentFragmentManager, "AddDialog")
-        }
-
-        calendarView.setOnDateChangedListener { widget, date, selected ->
-            handleDateClick(date)
-        }
-    }
     private fun handleDateClick(date: CalendarDay) {
         if (::calendarView.isInitialized) {
             showDateInfoDialog(date)

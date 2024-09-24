@@ -39,13 +39,12 @@ class AddListaDialogFragment : DialogFragment() {
         isCancelable = true
 
         binding.btnAddC.setOnClickListener {
-            val nomeCompra = binding.edtNomeAddCompra.text.toString()
-            val dataCompra = binding.edtDataCompra.text.toString()
-            val descCompra = binding.edtDescCompra.text.toString()
-            val desc = descCompra.toInt()
-
-
             lifecycleScope.launch {
+                val nomeCompra = binding.edtNomeAddCompra.text.toString()
+                val dataCompra = binding.edtDataCompra.text.toString()
+                val descCompra = binding.edtDescCompra.text.toString()
+                val desc = descCompra.toInt()
+
                 try {
                     registerCompra(nomeCompra,  desc)
                 } catch (e: Exception) {
@@ -54,6 +53,11 @@ class AddListaDialogFragment : DialogFragment() {
                 dismiss()
             }
         }
+
+        binding.btnFechar.setOnClickListener{
+            dismiss()
+        }
+
     }
 
 

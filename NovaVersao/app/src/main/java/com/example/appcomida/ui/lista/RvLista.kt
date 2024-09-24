@@ -1,26 +1,23 @@
 package com.example.appcomida.ui.lista
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appcomida.databinding.ListaAddBinding
 import com.example.appcomida.dataclass.alimento
 import com.example.appcomida.dataclass.compra
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.ArrayList
 
-//class rvLista(private  val CompraList : ArrayList<compra>): RecyclerView.Adapter<rvLista.ViewHolder>() {
+class RvLista(private  val CompraList : ArrayList<compra>): RecyclerView.Adapter<RvLista.ViewHolder>() {
 
-    /*class ViewHolder(val binding: rvListaBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ListaAddBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            rvListaBinding.inflate(
+            ListaAddBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -37,11 +34,11 @@ import java.util.ArrayList
 
         holder.apply {
             binding.apply {
-                alimento.text = currentItem.alimentoASerComprado
+                Alimento.text = currentItem.alimentoASerComprado
                 quantidade.text = "Quantidade: " + currentItem.quantidade
             }
         }
     }
 
 
-}*/
+}

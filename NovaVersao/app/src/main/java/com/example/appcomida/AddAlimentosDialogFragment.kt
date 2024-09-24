@@ -51,7 +51,6 @@ class AddAlimentosDialogFragment : DialogFragment() {
                 val validade = binding.edtValidade.text.toString()
 
                 try {
-
                     val formattedDate = formatDateToISO(validade) ?: "Invalid date"
                     registerAlimento(nomeAlimento, calorias.toDouble(), especificacoes, formattedDate)
                 } catch (e: Exception) {

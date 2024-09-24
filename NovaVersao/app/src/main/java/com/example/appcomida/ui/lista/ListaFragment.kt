@@ -29,6 +29,7 @@ class ListaFragment : Fragment() {
     private lateinit var alimentosList: ArrayList<compra>
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,11 +42,6 @@ class ListaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        parentFragmentManager.setFragmentResultListener("listaAlimentoRequest", this) { requestKey, bundle ->
-            fetchCompras()
-        }
-
         binding.rvAlimentos.layoutManager = LinearLayoutManager(requireContext())
 
         fetchCompras()
@@ -53,6 +49,8 @@ class ListaFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             val add = AddListaDialogFragment()
             add.show(parentFragmentManager, "AddDialog")
+
+
         }
     }
 

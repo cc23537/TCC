@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.appcomida.api.registerCompra
 import com.example.appcomida.api.registerUser
 import com.example.appcomida.databinding.FragmentAddListaDialogBinding
+import com.example.appcomida.ui.lista.RvLista
 import kotlinx.coroutines.launch
 
 
@@ -17,6 +18,7 @@ class AddListaDialogFragment : DialogFragment() {
 
     private var _binding: FragmentAddListaDialogBinding? = null
     private val binding get() = _binding!!
+    private lateinit var rvAdapter: RvLista
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,17 +42,12 @@ class AddListaDialogFragment : DialogFragment() {
 
         binding.btnAddC.setOnClickListener {
             lifecycleScope.launch {
-<<<<<<< Updated upstream
-                val nome = binding.edtDescCompra.text.toString()
-                val qtde = binding.edtDataCompra.text.toString().toInt()
-=======
                 val nomeCompra = binding.edtDescCompra.text.toString()
-                val descCompra = binding.edtQnt.text.toString()
-                val desc = descCompra.toInt()
+                val quantidade = binding.edtQnt.text.toString()
+                val desc = quantidade.toInt()
 
->>>>>>> Stashed changes
                 try {
-                    registerCompra(nome,  qtde)
+                    registerCompra(nomeCompra,  desc)
                 } catch (e: Exception) {
                     // Handle the exception
                 }

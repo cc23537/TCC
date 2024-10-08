@@ -1,10 +1,9 @@
 package com.example.appcomida.api
 
 import com.example.appcomida.ApiService
-import com.example.appcomida.dataclass.alimento
-import com.example.appcomida.dataclass.compra
-import com.example.appcomida.dataclass.user
-import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.example.appcomida.dataclass.Alimento
+import com.example.appcomida.dataclass.Compra
+import com.example.appcomida.dataclass.Cliente
 import getRetrofit
 import kotlinx.coroutines.*
 import retrofit2.HttpException
@@ -14,50 +13,44 @@ import java.io.IOException
 
 
 suspend fun registerUser(nome: String, email: String, password: String) {
-    val user = user(nome, email, password)
-
-    // Directly using the IO dispatcher
+    val Cliente = Cliente(nome, email, password)
     try {
         val apiService = getRetrofit().create(ApiService::class.java)
-        val response = withContext(Dispatchers.IO) { apiService.register(user) }
+        val response = withContext(Dispatchers.IO) { apiService.register(Cliente) }
 
-        // Handle the response on the Main dispatcher
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val registeredUser = response.body()
-                println("Registered User: $registeredUser") // Debug log
+                println("Registered User: $registeredUser")
             } else {
                 val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
-                println(errorMessage) // Debug log
+                println(errorMessage)
             }
         }
     } catch (e: IOException) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("IOException: ${e.message}") // Debug log
+            println("IOException: ${e.message}")
         }
     } catch (e: HttpException) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("HttpException: ${e.message()}") // Debug log
+            println("HttpException: ${e.message()}")
         }
     } catch (e: Exception) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("Exception: ${e.message}") // Debug log
+            println("Exception: ${e.message}")
         }
     }
 }
 
 suspend fun registerCompra(nome: String, qntde: Int) {
-    val compra = compra(nome,  qntde)
+    val compra = Compra(nome,  qntde)
 
-    // Directly using the IO dispatcher
     try {
         val apiService = getRetrofit().create(ApiService::class.java)
         val response = withContext(Dispatchers.IO) { apiService.registroCompras(compra) }
-
-        // Handle the response on the Main dispatcher
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val registerCompra = response.body()
@@ -84,74 +77,66 @@ suspend fun registerCompra(nome: String, qntde: Int) {
         }
     }
 }
-suspend fun registerAlimento(nome: String, cal: Double,esp:String,data:String) {
-    val alimento = alimento(nome,cal,esp,data)
-
-    // Directly using the IO dispatcher
+suspend fun registrarAlimento(nome: String, cal: Double, esp:String, data:String) {
+    val alimento = Alimento(nome,cal,esp,data)
     try {
         val apiService = getRetrofit().create(ApiService::class.java)
         val response = withContext(Dispatchers.IO) { apiService.registroAlimentos(alimento) }
 
-        // Handle the response on the Main dispatcher
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val alimentoR = response.body()
-                println("Registered Alimento: $alimentoR") // Debug log
+                println("Registered Alimento: $alimentoR")
             } else {
                 val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
-                println(errorMessage) // Debug log
+                println(errorMessage)
             }
         }
     } catch (e: IOException) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("IOException: ${e.message}") // Debug log
+            println("IOException: ${e.message}")
         }
     } catch (e: HttpException) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("HttpException: ${e.message()}") // Debug log
+            println("HttpException: ${e.message()}")
         }
     } catch (e: Exception) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("Exception: ${e.message}") // Debug log
+            println("Exception: ${e.message}")
         }
     }
 }
 
 suspend fun removeAlimento(nome: String,data:String) {
-
-
-    // Directly using the IO dispatcher
     try {
         val apiService = getRetrofit().create(ApiService::class.java)
         val response = withContext(Dispatchers.IO) { apiService.removeAlimento(nome,data) }
-
-        // Handle the response on the Main dispatcher
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val body = response.body()
-                println("Registered Alimento: $body") // Debug log
+                println("Registered Alimento: $body")
             } else {
                 val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
-                println(errorMessage) // Debug log
+                println(errorMessage)
             }
         }
     } catch (e: IOException) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("IOException: ${e.message}") // Debug log
+            println("IOException: ${e.message}")
         }
     } catch (e: HttpException) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("HttpException: ${e.message()}") // Debug log
+            println("HttpException: ${e.message()}")
         }
     } catch (e: Exception) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
-            println("Exception: ${e.message}") // Debug log
+            println("Exception: ${e.message}")
         }
     }
 }

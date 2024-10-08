@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.appcomida.AddAlimentosDialogFragment
-import com.example.appcomida.dataclass.alimento
+import com.example.appcomida.dataclass.Alimento
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import retrofit2.Call
@@ -22,13 +22,9 @@ import com.example.appcomida.ApiService
 import com.example.appcomida.api.removeAlimento
 import com.example.appcomida.databinding.FragmentCalendarioBinding
 
-import com.google.android.material.datepicker.DayViewDecorator
 import getRetrofit
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.Month
-import java.time.Year
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
@@ -87,9 +83,9 @@ class CalendarioFragment : Fragment() {
     private fun fetchAlimentoData() {
         val service = getRetrofit().create(ApiService::class.java)
 
-        service.getAllAlimentos().enqueue(object : Callback<List<alimento>> {
+        service.getAllAlimentos().enqueue(object : Callback<List<Alimento>> {
 
-            override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
+            override fun onResponse(call: Call<List<Alimento>>, response: Response<List<Alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
                         val apiData: List<String> = alimentos.mapNotNull { it.validade }
@@ -100,7 +96,7 @@ class CalendarioFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Alimento>>, t: Throwable) {
 
             }
         })
@@ -126,9 +122,9 @@ class CalendarioFragment : Fragment() {
     private fun showDateInfoDialog(date: CalendarDay) {
         val service = getRetrofit().create(ApiService::class.java)
 
-        service.getAllAlimentos().enqueue(object : Callback<List<alimento>> {
+        service.getAllAlimentos().enqueue(object : Callback<List<Alimento>> {
 
-            override fun onResponse(call: Call<List<alimento>>, response: Response<List<alimento>>) {
+            override fun onResponse(call: Call<List<Alimento>>, response: Response<List<Alimento>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { alimentos ->
 
@@ -209,7 +205,7 @@ class CalendarioFragment : Fragment() {
             }
 
 
-            override fun onFailure(call: Call<List<alimento>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Alimento>>, t: Throwable) {
             }
 
 

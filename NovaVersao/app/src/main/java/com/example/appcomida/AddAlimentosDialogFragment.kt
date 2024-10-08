@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
-import com.example.appcomida.api.registerAlimento
+import com.example.appcomida.api.registrarAlimento
 import com.example.appcomida.databinding.FragmentAddAlimentosDialogBinding
 import kotlinx.coroutines.launch
-import java.io.Console
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -52,7 +51,7 @@ class AddAlimentosDialogFragment : DialogFragment() {
 
                 try {
                     val formattedDate = formatDateToISO(validade) ?: "Invalid date"
-                    registerAlimento(nomeAlimento, calorias.toDouble(), especificacoes, formattedDate)
+                    registrarAlimento(nomeAlimento, calorias.toDouble(), especificacoes, formattedDate)
                 } catch (e: Exception) {
                     println(e)
                 }

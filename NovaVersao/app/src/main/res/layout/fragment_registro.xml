@@ -5,7 +5,8 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistroFragment">
+    tools:context=".RegistroFragment"
+    android:background="@color/white">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edtNome"

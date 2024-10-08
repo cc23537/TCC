@@ -1,13 +1,12 @@
 package com.example.appcomida
 
-import com.example.appcomida.dataclass.alimento
-import com.example.appcomida.dataclass.compra
-import com.example.appcomida.dataclass.user
+import com.example.appcomida.dataclass.Alimento
+import com.example.appcomida.dataclass.Compra
+import com.example.appcomida.dataclass.Cliente
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
-import java.sql.Date
 
 interface ApiService {
 
@@ -15,22 +14,22 @@ interface ApiService {
     suspend fun login(@Path("email") email: String, @Path("senha") password: String): Response<String>
 
     @POST("cliente")
-    suspend fun register(@Body user: user): Response<user>
+    suspend fun register(@Body Cliente: Cliente): Response<Cliente>
 
     @POST("compras")
-    suspend fun registroCompras(@Body compra: compra): Response<compra>
+    suspend fun registroCompras(@Body compra: Compra): Response<Compra>
 
     @GET("compras")
-    fun listagemCompras(): Call<List<compra>>
+    fun listagemCompras(): Call<List<Compra>>
 
     @POST("alimentos")
-    suspend fun registroAlimentos(@Body alimento: alimento): Response<alimento>
+    suspend fun registroAlimentos(@Body alimento: Alimento): Response<Alimento>
 
     @GET("/alimentos")
-    fun getAllAlimentos(): Call<List<alimento>>
+    fun getAllAlimentos(): Call<List<Alimento>>
 
     @GET("alimentos/{date}")
-    suspend fun data(@Path("date") date: CalendarDay): Response<List<alimento>>
+    suspend fun data(@Path("date") date: CalendarDay): Response<List<Alimento>>
 
 
     @DELETE("alimentos/{nome}/{date}")

@@ -1,6 +1,6 @@
 package com.example.appcomida.dataclass
 
-data class compra(
+data class Compra (
     val alimentoASerComprado: String,
     val quantidade: Int,
 )

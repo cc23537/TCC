@@ -1,59 +1,90 @@
 package com.example.appcomida
 
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.example.appcomida.databinding.FragmentAjudaBinding
+import android.Manifest
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AjudaFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AjudaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentAjudaBinding? = null
+    private val binding get() = _binding!!
+
+    // Código para abrir a câmera
+    private val CAMERA_REQUEST_CODE = 100
+    private val CAMERA_PERMISSION_CODE = 101
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ajuda, container, false)
+        _binding = FragmentAjudaBinding.inflate(inflater, container, false)
+
+        // Configura o clique no botão para abrir a câmera
+        binding.btnAbrirCamera.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                // Permissão já concedida
+                abrirCamera()
+            } else {
+                // Solicitar permissão
+                requestPermissions(
+                    arrayOf(Manifest.permission.CAMERA),
+                    CAMERA_PERMISSION_CODE
+                )
+            }
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AjudaFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AjudaFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun abrirCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // Recuperar a foto como um Bitmap
+            val photo: Bitmap = data?.extras?.get("data") as Bitmap
+            // Exibir a imagem capturada no ImageView
+            binding.imageView.setImageBitmap(photo)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permissão concedida, abrir a câmera
+                abrirCamera()
+            } else {
+                // Permissão negada
+                Toast.makeText(context, "Permissão da câmera negada", Toast.LENGTH_SHORT).show()
             }
+        }
     }
 }

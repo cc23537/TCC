@@ -5,8 +5,8 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".LoginFragment">
 
     <TextView
         android:id="@+id/txtSenha"
@@ -74,9 +74,10 @@
         android:layout_width="285dp"
         android:layout_height="57dp"
         android:layout_marginBottom="57dp"
-        android:background="@drawable/border_rounded2"
+        android:background="@drawable/border_rounded"
         android:backgroundTint="@color/white"
         android:text="@string/login"
+        app:iconTint="#009688"
         app:layout_constraintBottom_toTopOf="@+id/btnReg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

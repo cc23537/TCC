@@ -27,4 +27,9 @@
         android:name="com.example.appcomida.AjudaFragment"
         android:label="Ajude-nos"
         tools:layout="@layout/fragment_ajuda" />
+    <fragment
+        android:id="@+id/ReceitasFragment"
+        android:name="com.example.appcomida.ReceitasFragment"
+        android:label="fragment_receitas"
+        tools:layout="@layout/fragment_receitas" />
 </navigation>

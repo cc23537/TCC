@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         // Configurar o AppBarConfiguration com todos os destinos de nível superior
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_list, R.id.nav_calendario, R.id.ajudaFragment2),
+            setOf(R.id.nav_home, R.id.nav_list, R.id.nav_calendario, R.id.ajudaFragment2, R.id.ReceitasFragment),
             binding.drawerLayout
         )
 

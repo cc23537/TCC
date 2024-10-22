@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.appcomida.databinding.FragmentAjudaBinding
 import android.Manifest
+import org.tensorflow.lite.Interpreter
 
 class AjudaFragment : Fragment() {
 
@@ -24,11 +25,19 @@ class AjudaFragment : Fragment() {
     private val CAMERA_REQUEST_CODE = 100
     private val CAMERA_PERMISSION_CODE = 101
 
+    // Classe de detecção de frutas
+    private lateinit var fruitDetection: FruitDetection
+    private lateinit var interpreter: Interpreter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAjudaBinding.inflate(inflater, container, false)
+
+        // Inicializar o modelo TensorFlow Lite
+        fruitDetection = FruitDetection(requireContext())
+        interpreter = fruitDetection.loadModel()
 
         // Configura o clique no botão para abrir a câmera
         binding.btnAbrirCamera.setOnClickListener {
@@ -68,6 +77,12 @@ class AjudaFragment : Fragment() {
             val photo: Bitmap = data?.extras?.get("data") as Bitmap
             // Exibir a imagem capturada no ImageView
             binding.imageView.setImageBitmap(photo)
+
+            // Detectar frutas na imagem
+            val detectionResults = fruitDetection.detectFruit(photo, interpreter)
+
+            // Exibir os resultados na TextView
+            binding.resultTextView.text = detectionResults.joinToString("\n") { "${it.label}: ${it.confidence}" }
         }
     }
 

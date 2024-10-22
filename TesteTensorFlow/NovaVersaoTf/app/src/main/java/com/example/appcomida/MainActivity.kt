@@ -44,7 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         // Inicializar componentes do layout
         imageView = findViewById(R.id.imageView)
+
+
         resultTextView = findViewById(R.id.resultTextView)
+
         val btnAbrirCamera = findViewById<Button>(R.id.btnAbrirCamera)
 
         // Inicializar o modelo TensorFlow Lite

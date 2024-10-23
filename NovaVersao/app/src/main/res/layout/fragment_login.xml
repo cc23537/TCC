@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="229dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="28dp">
@@ -23,7 +23,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/user_icon" />
+                android:src="@drawable/user_icon"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,7 +33,8 @@
                 android:text="LOGIN"
                 android:textColor="@color/white"
                 android:textSize="32dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 
@@ -47,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="28dp">
+                android:padding="28dp"
+                android:layout_gravity="center">
 
                 <TextView
                     android:id="@+id/txtBemVindo"
@@ -57,7 +60,8 @@
                     android:text="Seja Muito Bem Vindo!"
                     android:textColor="@color/blueTeste"
                     android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
 
                 <View
                     android:layout_width="wrap_content"
@@ -73,17 +77,76 @@
                     android:textColor="@color/blueTeste"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:alpha="0.7"/>
+                    android:alpha="0.7"
+                    />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/edtEmail"
+                    android:layout_width="352dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_rounded"
+                    android:drawableEnd="@drawable/baseline_email_24"
+                    android:typeface="serif"
+                    android:layout_gravity="center"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    />
+
+                <TextView
+                    android:id="@+id/txtSenha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/allerta"
+                    android:text="SENHA:"
+                    android:textColor="@color/blueTeste"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:alpha="0.7"/>
+
+                <EditText
+                    android:id="@+id/edtPassworld"
+                    android:layout_width="352dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/border_rounded"
-                    android:hint="Email"
+                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
                     android:typeface="serif"
-                    app:circularflow_defaultRadius="10dp"
-                    app:circularflow_radiusInDP="50dp"
+                    android:layout_gravity="center"
+                    android:inputType="textPassword"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    />
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="285dp"
+                    android:layout_height="57dp"
+                    android:background="@drawable/border_rounded"
+                    android:backgroundTint="@color/white"
+                    android:text="@string/login"
+                    app:iconTint="#009688"
+                    android:layout_gravity="center"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    />
+
+                <Button
+                    android:id="@+id/btnReg"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/border_rounded"
+                    android:backgroundTint="#85CFD8"
+                    android:text="Registrar-se"
+                    android:layout_gravity="center"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     />
             </LinearLayout>
 
@@ -198,9 +261,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />-->
-
-<<<<<<< Updated upstream
-</androidx.constraintlayout.widget.ConstraintLayout>
-=======
 </RelativeLayout>
->>>>>>> Stashed changes

@@ -93,7 +93,7 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8084/")
+            .baseUrl("https://257e-187-106-37-122.ngrok-free.app/")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

@@ -11,5 +11,9 @@ public interface ComprasRepository extends CrudRepository<Compras, Integer>{
     List<Compras> findAll();
 
     Compras findByIdCompra(int findByIdCompra);
+     
+    Compras deleteCompras(String alimento, int quantidade);
+
+    Compras findbyNome(String nome);
 
 }

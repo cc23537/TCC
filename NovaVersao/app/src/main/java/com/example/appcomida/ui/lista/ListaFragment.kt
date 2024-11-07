@@ -1,15 +1,25 @@
 package com.example.appcomida.ui.lista
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.appcomida.AddListaDialogFragment
 import com.example.appcomida.ApiService
+import com.example.appcomida.R
 import com.example.appcomida.databinding.FragmentListaBinding
 import com.example.appcomida.dataclass.Compra
 
@@ -84,10 +94,72 @@ class ListaFragment : Fragment() {
 
     }
 
-
-
     private fun showError(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun deletar(){
+        val swipeBackground = ColorDrawable(Color.RED)
+        val deleteIcon: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
+
+        val swipe = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = binding.rvAlimentos.adapter as RvLista
+                adapter.deleteItem(viewHolder.adapterPosition, requireContext())
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+
+                val itemView = viewHolder.itemView
+                val backgroundCornerOffset = 20
+
+                val paint = Paint().apply {
+                    color = Color.rgb(253, 105,105)
+                    isAntiAlias = true
+                }
+
+                val rectF = RectF(
+                    itemView.right + dX - backgroundCornerOffset,
+                    itemView.top.toFloat(),
+                    itemView.right.toFloat(),
+                    itemView.bottom.toFloat()
+                )
+                val cornerRadius = 30f
+
+                if (dX < 0) {
+                    c.drawRoundRect(rectF, cornerRadius, cornerRadius, paint)
+
+                    val iconMargin = (itemView.height - deleteIcon!!.intrinsicHeight) / 2
+                    val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2
+                    val iconBottom = iconTop + deleteIcon.intrinsicHeight
+                    val iconLeft = itemView.right - iconMargin - deleteIcon.intrinsicWidth
+                    val iconRight = itemView.right - iconMargin
+                    deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+
+                    deleteIcon.draw(c)
+                }
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipe)
+        itemTouchHelper.attachToRecyclerView(binding.rvAlimentos)
     }
 
     override fun onDestroyView() {

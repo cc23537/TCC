@@ -46,7 +46,8 @@ class LoginFragment : Fragment() {
             val email = binding.edtEmail.text.toString()
             val senha = binding.edtPassworld.text.toString()
 
-            fetchData(email, senha)
+            //fetchData(email, senha)
+            (activity as MainActivity).navigateToMain()
         }
         binding.btnReg.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_registroFragment)

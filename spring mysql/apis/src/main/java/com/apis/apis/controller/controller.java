@@ -116,6 +116,15 @@ public class controller {
     public String mensagem(){
         return "Hello World!";
     }
+
+    @DeleteMapping("/compras/{nome}/{quantidade}")
+    public void removerCompra(@PathVariable String nome,@PathVariable Integer quantidade){
+
+        Compras obj = comprasRepository.findbyNome(nome);
+        obj.setQuantidade(obj.getQuantidade() - quantidade);
+        comprasRepository.delete(obj);
+    }
+    
     
 
     

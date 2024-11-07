@@ -93,7 +93,7 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://2b1e-187-106-37-122.ngrok-free.app/")
+            .baseUrl("http://3582-187-106-37-122.ngrok-free.app/")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
@@ -107,7 +107,7 @@ class LoginFragment : Fragment() {
         )
         val editor = sharedPreferences.edit()
         editor.putBoolean("isLoggedIn", true)
-        editor.apply()
+        editor.apply()       
     }
 }
 

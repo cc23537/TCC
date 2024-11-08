@@ -3,8 +3,7 @@ package com.apis.apis.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.apis.apis.models.Alimento;
@@ -120,7 +119,7 @@ public class controller {
     @DeleteMapping("/compras/{nome}/{quantidade}")
     public void removerCompra(@PathVariable String nome,@PathVariable Integer quantidade){
 
-        Compras obj = comprasRepository.findbyNome(nome);
+        Compras obj = comprasRepository.findByAlimentoASerComprado(nome);
         obj.setQuantidade(obj.getQuantidade() - quantidade);
         comprasRepository.delete(obj);
     }

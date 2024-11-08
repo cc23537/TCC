@@ -12,8 +12,8 @@ public interface ComprasRepository extends CrudRepository<Compras, Integer>{
 
     Compras findByIdCompra(int findByIdCompra);
      
-    Compras deleteCompras(String alimento, int quantidade);
+    void deleteByAlimentoASerCompradoAndQuantidade(String alimentoASerComprado, int quantidade);
 
-    Compras findbyNome(String nome);
+   Compras findByAlimentoASerComprado(String alimentoASerComprado);
 
 }

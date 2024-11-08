@@ -78,8 +78,19 @@ class FruitDetection(private val context: Context) {
         // Suponha que outputArray[0] contém as pontuações para cada categoria
         for (i in 0 until outputArray[0].size) { // Alterar para outputArray[0].size
             val confidence = outputArray[0][i]
-            if (confidence > 0.5) { // Ajuste o limiar de confiança conforme necessário
-                results.add(DetectionResult("Categoria $i", confidence))
+            if (confidence > 0.95) { // Ajuste o limiar de confiança conforme necessário
+
+                if (i == 0){
+                    results.add(DetectionResult("Maça,chance: ", confidence))
+                }
+                else if(i==1){
+                    results.add(DetectionResult("Cereja,chance: ", confidence))
+                }
+                else if(i==2){
+                    results.add(DetectionResult("Banana,chance: ", confidence))
+                }
+
+
             }
         }
 

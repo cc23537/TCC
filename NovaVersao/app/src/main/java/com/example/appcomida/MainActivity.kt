@@ -15,14 +15,64 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
 import com.example.appcomida.databinding.ActivityMainBinding
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.widget.Button
+import android.widget.TextView
+
+
+
+import android.widget.ImageView
+
+import org.tensorflow.lite.Interpreter
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var fruitDetection: FruitDetection
+    private lateinit var interpreter: Interpreter
+    private lateinit var imageView: ImageView
+
+    private lateinit var resultTextView: TextView // Corrigido aqui
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_ajuda)
+
+        // Inicializar componentes do layout
+        imageView = findViewById(R.id.imageView)
+
+
+        resultTextView = findViewById(R.id.resultTextView)
+
+        val btnAbrirCamera = findViewById<Button>(R.id.btnAbrirCamera)
+
+        // Inicializar o modelo TensorFlow Lite
+        fruitDetection = FruitDetection(this)
+        interpreter = fruitDetection.loadModel()
+
+        // Carregar uma imagem (de assets, por exemplo)
+        val bitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.macateste)
+
+        // Detectar frutas na imagem
+        val detectionResults = fruitDetection.detectFruit(bitmap, interpreter)
+
+        // Exibir a imagem original
+        imageView.setImageBitmap(bitmap)
+
+        // Exibir os resultados na TextView
+        resultTextView.text = detectionResults.joinToString("\n")
+
+        // Exemplo de ação para o botão (pode abrir a câmera, galeria, etc.)
+        btnAbrirCamera.setOnClickListener {
+            // Ação para abrir a câmera ou carregar outra imagem
+            // Por exemplo, abra a câmera e use a imagem retornada para detecção
+        }
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

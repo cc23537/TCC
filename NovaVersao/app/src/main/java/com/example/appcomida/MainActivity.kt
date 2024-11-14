@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         // Listener para controlar a visibilidade do Toolbar e Drawer
         navHostStartFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.splashFragment, R.id.loginFragment -> hideToolbarAndDrawer()
+                R.id.splashFragment, R.id.loginFragment, R.id.registroFragment -> hideToolbarAndDrawer()
                 else -> showToolbarAndDrawer()
             }
         }

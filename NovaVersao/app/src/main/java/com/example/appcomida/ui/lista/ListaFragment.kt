@@ -52,6 +52,12 @@ class ListaFragment : Fragment() {
         binding.rvAlimentos.layoutManager = LinearLayoutManager(requireContext())
 
         fetchCompras()
+        deletar()
+
+        binding.rvAlimentos.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this.context)
+        }
 
         binding.floatingActionButton.setOnClickListener {
             val add = AddListaDialogFragment()

@@ -92,6 +92,7 @@ class FruitDetection(private val context: Context) {
 
 
             }
+            else {results.add(DetectionResult("Não é um alimento ", confidence))}
         }
 
         return results

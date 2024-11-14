@@ -37,4 +37,10 @@ interface ApiService {
         @Path("nome") nome: String,
         @Path("date") date: String
     ): Response<Void>
+
+    @DELETE("compras/{nome}/{quantidade}")
+    suspend fun removeCompra(
+        @Path("nome") nome: String,
+        @Path("quantidade") quantidade: Int
+    ): Response<Void>
 }

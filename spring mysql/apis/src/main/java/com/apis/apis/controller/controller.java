@@ -122,6 +122,7 @@ public class controller {
         Compras obj = comprasRepository.findByAlimentoASerComprado(nome);
         obj.setQuantidade(obj.getQuantidade() - quantidade);
         comprasRepository.delete(obj);
+        
     }
     
     

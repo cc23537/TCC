@@ -46,12 +46,14 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
     public fun deleteItem(position: Int, context: Context) {
         // Show confirmation dialog
         MaterialAlertDialogBuilder(context)
-            .setTitle("Deletar Disciplina Permanentemente")
-            .setMessage("Você tem certeza que vai excluir essa Disciplina?")
+            .setTitle("Deletar Alimento Permanentemente")
+            .setMessage("Você tem certeza que vai excluir esse Alimento?")
             .setPositiveButton("Sim") { _, _ ->
-                println("Deletado")
+                //compraList.removeAt(position)
+                notifyItemRemoved(position)
             }
             .setNegativeButton("Não") { dialog, _ ->
+                // Reverte o swipe ao notificar a mudança do item
                 dialog.dismiss()
                 notifyItemChanged(position)
             }

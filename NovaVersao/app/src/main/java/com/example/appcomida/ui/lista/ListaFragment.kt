@@ -60,11 +60,13 @@ class ListaFragment : Fragment() {
             layoutManager = LinearLayoutManager(this.context)
         }
 
+        parentFragmentManager.setFragmentResultListener("adicionarAlimento", this) { _, _ ->
+            fetchCompras()  // Atualiza a lista chamando novamente fetchCompras
+        }
+
         binding.floatingActionButton.setOnClickListener {
             val add = AddListaDialogFragment()
             add.show(parentFragmentManager, "AddDialog")
-
-
         }
     }
 
@@ -91,8 +93,6 @@ class ListaFragment : Fragment() {
                     showError("Erro ao obter dados")
                 }
             }
-
-
 
             override fun onFailure(call: Call<List<Compra>>, t: Throwable) {
                 showError("Falha na solicitação: ${t.message}")

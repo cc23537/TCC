@@ -22,6 +22,7 @@ import com.example.appcomida.ApiService
 import com.example.appcomida.R
 import com.example.appcomida.databinding.FragmentListaBinding
 import com.example.appcomida.dataclass.Compra
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import getRetrofit
 import retrofit2.Call
@@ -59,11 +60,13 @@ class ListaFragment : Fragment() {
             layoutManager = LinearLayoutManager(this.context)
         }
 
+        parentFragmentManager.setFragmentResultListener("adicionarAlimento", this) { _, _ ->
+            fetchCompras()  // Atualiza a lista chamando novamente fetchCompras
+        }
+
         binding.floatingActionButton.setOnClickListener {
             val add = AddListaDialogFragment()
             add.show(parentFragmentManager, "AddDialog")
-
-
         }
     }
 
@@ -91,8 +94,6 @@ class ListaFragment : Fragment() {
                 }
             }
 
-
-
             override fun onFailure(call: Call<List<Compra>>, t: Throwable) {
                 showError("Falha na solicitação: ${t.message}")
             }
@@ -119,7 +120,8 @@ class ListaFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.rvAlimentos.adapter as RvLista
-                adapter.deleteItem(viewHolder.adapterPosition, requireContext())
+                var resposta: String = adapter.deleteItem(viewHolder.adapterPosition, requireContext())
+                Toast.makeText(requireContext(), "Alimento = "+resposta+"", Toast.LENGTH_SHORT).show()
             }
 
             override fun onChildDraw(

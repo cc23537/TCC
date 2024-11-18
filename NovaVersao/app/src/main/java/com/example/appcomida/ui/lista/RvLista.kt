@@ -1,23 +1,28 @@
 package com.example.appcomida.ui.lista
 
 import android.content.Context
+import android.os.Build
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appcomida.ApiService
+import com.example.appcomida.api.DeleteLista
+import com.example.appcomida.api.registrarAlimento
+import com.example.appcomida.api.removeAlimento
 import com.example.appcomida.databinding.ListaAddBinding
+import com.example.appcomida.dataclass.Alimento
 import com.example.appcomida.dataclass.Compra
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
-import getRetrofit
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
+import kotlinx.coroutines.launch
 import java.util.ArrayList
 
 class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter<RvLista.ViewHolder>() {
+
+    private var alimento_teste: String = " "
 
     class ViewHolder(val binding: ListaAddBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -43,31 +48,29 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
 
         holder.apply {
             binding.apply {
+                alimento_teste = Alimento.text.toString()
                 Alimento.text = currentItem.alimentoASerComprado
                 quantidade.text = "Quantidade: " + currentItem.quantidade
             }
         }
     }
 
-    public fun deleteItem(position: Int, context: Context) {
+    public fun deleteItem(position: Int, context: Context) : String{
         // Show confirmation dialog
         MaterialAlertDialogBuilder(context)
-            .setTitle("Deletar Disciplina Permanentemente")
-            .setMessage("Você tem certeza que vai excluir essa Disciplina?")
+            .setTitle("Deletar Alimento Permanentemente")
+            .setMessage("Você tem certeza que vai excluir esse Alimento?")
             .setPositiveButton("Sim") { _, _ ->
-                println("Deletado")
+                //compraList.removeAt(position)
+                notifyItemRemoved(position)
+                //DeleteLista(nome, quantidade)
             }
             .setNegativeButton("Não") { dialog, _ ->
+                // Reverte o swipe ao notificar a mudança do item
                 dialog.dismiss()
                 notifyItemChanged(position)
             }
             .show()
+        return alimento_teste
     }
-
-
-    public fun DeleteLista(nome: String, quantidade: Int) {
-        val apiService = getRetrofit().create(ApiService::class.java)
-        val response = { apiService.removeCompra(nome, quantidade) }
-    }
-
 }

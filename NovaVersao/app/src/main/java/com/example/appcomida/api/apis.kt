@@ -141,34 +141,9 @@ suspend fun removeAlimento(nome: String,data:String) {
     }
 }
 
-suspend fun DeleteLista(nome: String,quantidade:Int) {
-    try {
-        val apiService = getRetrofit().create(ApiService::class.java)
-        val response = withContext(Dispatchers.IO) { apiService.removeCompra(nome,quantidade) }
-        withContext(Dispatchers.Main) {
-            if (response.isSuccessful) {
-                println("Deleted Alimento")
-            } else {
-                val errorMessage = "Failed: ${response.code()} - ${response.errorBody()?.string()}"
-                println(errorMessage)
-            }
-        }
-    } catch (e: IOException) {
-        e.printStackTrace()
-        withContext(Dispatchers.Main) {
-            println("IOException: ${e.message}")
-        }
-    } catch (e: HttpException) {
-        e.printStackTrace()
-        withContext(Dispatchers.Main) {
-            println("HttpException: ${e.message()}")
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        withContext(Dispatchers.Main) {
-            println("Exception: ${e.message}")
-        }
-    }
+public fun DeleteLista(nome: String, quantidade:Int) {
+    val apiService = getRetrofit().create(ApiService::class.java)
+    val response = { apiService.removeCompra(nome,quantidade) }
 }
 
 

@@ -15,35 +15,21 @@
         android:src="@drawable/fundo7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.503" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="247dp"
-        android:layout_height="124dp"
+        android:layout_width="445dp"
+        android:layout_height="204dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394"
-        app:srcCompat="@drawable/maca2" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="194dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="356dp"
-        android:gravity="center"
-        android:text="TCC"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.462"
+        app:srcCompat="@drawable/maca_nova" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

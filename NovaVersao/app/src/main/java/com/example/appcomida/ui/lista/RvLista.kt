@@ -5,10 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appcomida.ApiService
 import com.example.appcomida.databinding.ListaAddBinding
 import com.example.appcomida.dataclass.Compra
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
+import getRetrofit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 import java.util.ArrayList
 
 class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter<RvLista.ViewHolder>() {
@@ -58,5 +64,10 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
             .show()
     }
 
+
+    public fun DeleteLista(nome: String, quantidade: Int) {
+        val apiService = getRetrofit().create(ApiService::class.java)
+        val response = { apiService.removeCompra(nome, quantidade) }
+    }
 
 }

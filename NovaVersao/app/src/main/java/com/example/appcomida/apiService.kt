@@ -39,7 +39,7 @@ interface ApiService {
     ): Response<Void>
 
     @DELETE("compras/{nome}/{quantidade}")
-    suspend fun removeCompra(
+    public fun removeCompra(
         @Path("nome") nome: String,
         @Path("quantidade") quantidade: Int
     ): Response<Void>

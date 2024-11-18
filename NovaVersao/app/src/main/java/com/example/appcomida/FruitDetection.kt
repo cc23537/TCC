@@ -3,9 +3,11 @@ package com.example.appcomida
 import android.content.Context
 import android.graphics.Bitmap
 import org.tensorflow.lite.Interpreter
+import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.FileChannel
+
 
 class FruitDetection(private val context: Context) {
 
@@ -74,8 +76,10 @@ class FruitDetection(private val context: Context) {
     // Função para processar os resultados da detecção
     private fun parseDetectionResults(outputArray: Array<FloatArray>): List<DetectionResult> {
         val results = mutableListOf<DetectionResult>()
+        val frutas = carregarFrutas(this)
 
         // Suponha que outputArray[0] contém as pontuações para cada categoria
+        var a: String = getFrutaPorIndice(frutas,confidence)
         for (i in 0 until outputArray[0].size) { // Alterar para outputArray[0].size
             val confidence = outputArray[0][i]
             if (confidence > 0.95) { // Ajuste o limiar de confiança conforme necessário
@@ -104,3 +108,13 @@ class FruitDetection(private val context: Context) {
 // Classe de resultado de detecção
 data class DetectionResult(val label: String, val confidence: Float)
 
+
+fun lerFrutasDoAssets(context: Context, arquivo: String): List<String> {
+    return context.assets.open(arquivo).bufferedReader().useLines { it.toList() }
+}
+
+
+fun getFrutaPorIndice(context: Context, indice: Int): String {
+    val frutas = lerFrutasDoAssets(context, "labels.txt")
+    return if (indice in frutas.indices) frutas[indice] else "Fruta não encontrada"
+}

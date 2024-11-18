@@ -75,22 +75,15 @@ class FruitDetection(private val context: Context) {
     private fun parseDetectionResults(outputArray: Array<FloatArray>): List<DetectionResult> {
         val results = mutableListOf<DetectionResult>()
 
-        // Suponha que outputArray[0] contém as pontuações para cada categoria
-        for (i in 0 until outputArray[0].size) { // Alterar para outputArray[0].size
+        // Lista de rótulos correspondentes aos índices do modelo
+        val labels = listOf("Maçã", "Cereja", "Banana") // Adicione mais rótulos conforme necessário
+
+        // Iterar sobre os resultados do modelo
+        for (i in outputArray[0].indices) {
             val confidence = outputArray[0][i]
             if (confidence > 0.95) { // Ajuste o limiar de confiança conforme necessário
-
-                if (i == 0){
-                    results.add(DetectionResult("Maça,chance: ", confidence))
-                }
-                else if(i==1){
-                    results.add(DetectionResult("Cereja,chance: ", confidence))
-                }
-                else if(i==2){
-                    results.add(DetectionResult("Banana,chance: ", confidence))
-                }
-
-
+                val label = labels.getOrNull(i) ?: "Desconhecido" // Tratamento para índices fora do alcance
+                results.add(DetectionResult("$label, chance: ", confidence))
             }
         }
 
@@ -102,4 +95,5 @@ class FruitDetection(private val context: Context) {
 
 // Classe de resultado de detecção
 data class DetectionResult(val label: String, val confidence: Float)
+
 

@@ -23,6 +23,7 @@ import android.widget.TextView
 
 
 import android.widget.ImageView
+import layout.NavHeader
 
 import org.tensorflow.lite.Interpreter
 
@@ -44,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
         // Inicializar componentes do layout
         imageView = findViewById(R.id.imageView)
-
 
         resultTextView = findViewById(R.id.resultTextView)
 

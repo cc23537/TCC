@@ -1,5 +1,6 @@
 package com.example.appcomida.ui.Calendario
 
+import CaixaAzulDecorator
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
@@ -103,6 +104,8 @@ class CalendarioFragment : Fragment() {
     }
     private fun updateCalendar(apiData: List<String>) {
         redDays.clear()
+        val azulDays = mutableListOf<CalendarDay>()
+
         apiData.forEach { dateString ->
             val dateParts = dateString.split("-")
             if (dateParts.size == 3) {
@@ -113,11 +116,14 @@ class CalendarioFragment : Fragment() {
 
                 val diasRestantes = diasFaltantes(year, month + 1, day)
                 if (diasRestantes >= 0) {
-                    redDays.add(calendarDay)
+                    azulDays.add(calendarDay) // Adiciona aos dias com a caixa azul
                 }
             }
         }
-        calendarView.invalidateDecorators()
+
+        // Atualiza os decorators
+        calendarView.removeDecorators() // Remove decoradores antigos
+        calendarView.addDecorator(CaixaAzulDecorator(azulDays, requireContext().getDrawable(R.drawable.caixa_azul)!!))
     }
     private fun showDateInfoDialog(date: CalendarDay) {
         val service = getRetrofit().create(ApiService::class.java)

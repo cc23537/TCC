@@ -3,6 +3,7 @@ package com.example.appcomida
 import android.content.Context
 import android.graphics.Bitmap
 import org.tensorflow.lite.Interpreter
+import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.FileChannel
@@ -72,11 +73,11 @@ class FruitDetection(private val context: Context) {
 
 
     // Função para processar os resultados da detecção
-    private fun parseDetectionResults(outputArray: Array<FloatArray>): List<DetectionResult> {
+    private fun parseDetectionResults(context: Context, outputArray: Array<FloatArray>): List<DetectionResult> {
         val results = mutableListOf<DetectionResult>()
 
-        // Lista de rótulos correspondentes aos índices do modelo
-        val labels = listOf("Maçã", "Cereja", "Banana") // Adicione mais rótulos conforme necessário
+        // Ler os rótulos do arquivo no assets
+        val labels = lerLabelsDoAssets(context, "labels.txt") // Nome do arquivo com os rótulos
 
         // Iterar sobre os resultados do modelo
         for (i in outputArray[0].indices) {
@@ -96,4 +97,14 @@ class FruitDetection(private val context: Context) {
 // Classe de resultado de detecção
 data class DetectionResult(val label: String, val confidence: Float)
 
+private fun lerLabelsDoAssets(context: Context, nomeArquivo: String): List<String> {
+    return try {
+        context.assets.open(nomeArquivo).bufferedReader().useLines { linhas ->
+            linhas.toList()
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+        emptyList() // Retorna uma lista vazia em caso de erro
+    }
+}
 

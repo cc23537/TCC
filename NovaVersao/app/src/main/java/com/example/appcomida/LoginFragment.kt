@@ -62,6 +62,7 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val message = response.body()
                         println("Response Body: $message")
+                        saveEmail(email)
                         //saveLogin()
                         //findNavController().navigate(R.id.action_loginFragment_to_nav_home)//action_loginFragment_to_nav_home
                         (activity as MainActivity).navigateToMain()
@@ -82,6 +83,13 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun saveEmail(email: String) {
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("user_email", email)
+        editor.apply()
     }
 
     private fun getRetrofit(): Retrofit {

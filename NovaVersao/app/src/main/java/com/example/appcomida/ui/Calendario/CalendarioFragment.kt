@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.example.appcomida.ApiService
+import com.example.appcomida.R
 import com.example.appcomida.api.removeAlimento
 import com.example.appcomida.databinding.FragmentCalendarioBinding
 

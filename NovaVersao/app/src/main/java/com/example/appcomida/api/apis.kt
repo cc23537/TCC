@@ -146,6 +146,12 @@ public fun DeleteLista(nome: String, quantidade:Int) {
     val response = { apiService.removeCompra(nome,quantidade) }
 }
 
+public fun acharnome(email: String, senha: String){
+    val apiService =  getRetrofit().create(ApiService::class.java)
+    val response = { apiService.achanome(email,senha)}
+}
+
+
 
 
 

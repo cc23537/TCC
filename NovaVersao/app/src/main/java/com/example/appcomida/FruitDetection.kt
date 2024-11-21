@@ -80,7 +80,7 @@ class FruitDetection(private val context: Context) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            throw FileNotFoundException("Arquivo fruits.txt não encontrado no diretório assets.")
+            throw FileNotFoundException("Arquivo labels.txt não encontrado no diretório assets.")
         }
 
         return labels

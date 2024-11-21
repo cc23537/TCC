@@ -3,7 +3,6 @@ package com.example.appcomida
 import android.content.Context
 import android.graphics.Bitmap
 import org.tensorflow.lite.Interpreter
-import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.FileChannel
@@ -32,7 +31,7 @@ class FruitDetection(private val context: Context) {
         val inputBuffer: ByteBuffer = preprocessImage(bitmap, imageSize)
 
         // Criar array de saída para armazenar os resultados da inferência
-        val outputArray = Array(1) { FloatArray(3) }  // Exemplo: 10 categorias de frutas
+        val outputArray = Array(1) { FloatArray(13) }  // Exemplo: 10 categorias de frutas
 
         // Executar a inferência
         interpreter.run(inputBuffer, outputArray)
@@ -73,18 +72,25 @@ class FruitDetection(private val context: Context) {
 
 
     // Função para processar os resultados da detecção
-    private fun parseDetectionResults(context: Context, outputArray: Array<FloatArray>): List<DetectionResult> {
+    private fun parseDetectionResults(outputArray: Array<FloatArray>): List<DetectionResult> {
         val results = mutableListOf<DetectionResult>()
 
-        // Ler os rótulos do arquivo no assets
-        val labels = lerLabelsDoAssets(context, "labels.txt") // Nome do arquivo com os rótulos
-
-        // Iterar sobre os resultados do modelo
-        for (i in outputArray[0].indices) {
+        // Suponha que outputArray[0] contém as pontuações para cada categoria
+        for (i in 0 until outputArray[0].size) { // Alterar para outputArray[0].size
             val confidence = outputArray[0][i]
             if (confidence > 0.95) { // Ajuste o limiar de confiança conforme necessário
-                val label = labels.getOrNull(i) ?: "Desconhecido" // Tratamento para índices fora do alcance
-                results.add(DetectionResult("$label, chance: ", confidence))
+
+                if (i == 0){
+                    results.add(DetectionResult("Maça,chance: ", confidence))
+                }
+                else if(i==1){
+                    results.add(DetectionResult("Cereja,chance: ", confidence))
+                }
+                else if(i==2){
+                    results.add(DetectionResult("Banana,chance: ", confidence))
+                }
+
+
             }
         }
 
@@ -97,14 +103,4 @@ class FruitDetection(private val context: Context) {
 // Classe de resultado de detecção
 data class DetectionResult(val label: String, val confidence: Float)
 
-private fun lerLabelsDoAssets(context: Context, nomeArquivo: String): List<String> {
-    return try {
-        context.assets.open(nomeArquivo).bufferedReader().useLines { linhas ->
-            linhas.toList()
-        }
-    } catch (e: IOException) {
-        e.printStackTrace()
-        emptyList() // Retorna uma lista vazia em caso de erro
-    }
-}
 

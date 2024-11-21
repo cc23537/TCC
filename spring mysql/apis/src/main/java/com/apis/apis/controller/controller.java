@@ -106,6 +106,17 @@ public class controller {
         return comprasRepository.save(a);
 
     }
+
+    @GetMapping("/nomecliente/email/senha")
+    public String getnome(@PathVariable String email, @PathVariable String senha) {
+        Cliente verify =  clienteRepository.findByEmail(email);
+        if(verify.getSenha()== senha){
+            return verify.getNomeCliente();
+        }
+        else{
+            return null;
+        }
+    }
     
 
   

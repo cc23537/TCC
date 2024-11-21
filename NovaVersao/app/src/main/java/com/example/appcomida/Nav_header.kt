@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.appcomida.databinding.ActivityMainBinding
 import com.example.appcomida.databinding.NavHeaderMainBinding
 
 class NavHeader(private val context: Context) {

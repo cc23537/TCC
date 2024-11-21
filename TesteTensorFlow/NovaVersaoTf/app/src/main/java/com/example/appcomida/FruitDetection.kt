@@ -24,14 +24,14 @@ class FruitDetection(private val context: Context) {
 
     // Detecta frutas na imagem usando o modelo TensorFlow Lite
     fun detectFruit(bitmap: Bitmap, interpreter: Interpreter): List<DetectionResult> {
-        val imageSize = 224  // Suponha que o modelo espere uma imagem 300x300
+        val imageSize = 224  // Dimensão esperada pelo modelo
         val channels = 3     // RGB
 
         // Pré-processar a imagem
         val inputBuffer: ByteBuffer = preprocessImage(bitmap, imageSize)
 
-        // Criar array de saída para armazenar os resultados da inferência
-        val outputArray = Array(1) { FloatArray(3) }  // Exemplo: 10 categorias de frutas
+        // Atualize o array de saída para ter o tamanho correto (12 classes)
+        val outputArray = Array(1) { FloatArray(12) }  // Atualize 12 para o número correto de categorias
 
         // Executar a inferência
         interpreter.run(inputBuffer, outputArray)
@@ -75,26 +75,31 @@ class FruitDetection(private val context: Context) {
     private fun parseDetectionResults(outputArray: Array<FloatArray>): List<DetectionResult> {
         val results = mutableListOf<DetectionResult>()
 
+        // Carrega os nomes das frutas
+        val fruitLabels = loadFruitLabels()
+
         // Suponha que outputArray[0] contém as pontuações para cada categoria
-        for (i in 0 until outputArray[0].size) { // Alterar para outputArray[0].size
+        for (i in outputArray[0].indices) {
             val confidence = outputArray[0][i]
             if (confidence > 0.95) { // Ajuste o limiar de confiança conforme necessário
-
-                if (i == 0){
-                    results.add(DetectionResult("Maça,chance: ", confidence))
-                }
-                else if(i==1){
-                    results.add(DetectionResult("Cereja,chance: ", confidence))
-                }
-                else if(i==2){
-                    results.add(DetectionResult("Banana,chance: ", confidence))
-                }
-
-
+                val label = if (i < fruitLabels.size) fruitLabels[i] else "Desconhecido"
+                results.add(DetectionResult("$label, chance: ", confidence))
             }
         }
 
         return results
+    }
+
+    private fun loadFruitLabels(): List<String> {
+        val assetManager = context.assets
+        val labels = mutableListOf<String>()
+
+        // Abre o arquivo no diretório assets
+        assetManager.open("labels.txt").bufferedReader().useLines { lines ->
+            lines.forEach { labels.add(it.trim()) }
+        }
+
+        return labels
     }
 
 }

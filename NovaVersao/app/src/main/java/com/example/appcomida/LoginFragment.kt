@@ -62,6 +62,7 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val message = response.body()
                         println("Response Body: $message")
+                        saveEmail(email)
                         //saveLogin()
                         //findNavController().navigate(R.id.action_loginFragment_to_nav_home)//action_loginFragment_to_nav_home
                         (activity as MainActivity).navigateToMain()
@@ -84,6 +85,13 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun saveEmail(email: String) {
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("user_email", email)
+        editor.apply()
+    }
+
     private fun getRetrofit(): Retrofit {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -93,7 +101,7 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://3582-187-106-37-122.ngrok-free.app/")
+            .baseUrl("https://03e7-187-106-37-122.ngrok-free.app")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

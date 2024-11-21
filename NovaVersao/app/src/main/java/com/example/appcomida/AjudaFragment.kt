@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Bitmap.createScaledBitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -14,15 +15,18 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.appcomida.databinding.FragmentAjudaBinding
 import android.Manifest
+import org.tensorflow.lite.Interpreter
 
 class AjudaFragment : Fragment() {
 
     private var _binding: FragmentAjudaBinding? = null
     private val binding get() = _binding!!
 
-    // Código para abrir a câmera
     private val CAMERA_REQUEST_CODE = 100
     private val CAMERA_PERMISSION_CODE = 101
+
+    private lateinit var fruitDetection: FruitDetection
+    private lateinit var interpreter: Interpreter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,17 +34,17 @@ class AjudaFragment : Fragment() {
     ): View? {
         _binding = FragmentAjudaBinding.inflate(inflater, container, false)
 
-        // Configura o clique no botão para abrir a câmera
+        fruitDetection = FruitDetection(requireContext())
+        interpreter = fruitDetection.loadModel()
+
         binding.btnAbrirCamera.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                // Permissão já concedida
                 abrirCamera()
             } else {
-                // Solicitar permissão
                 requestPermissions(
                     arrayOf(Manifest.permission.CAMERA),
                     CAMERA_PERMISSION_CODE
@@ -64,11 +68,19 @@ class AjudaFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            // Recuperar a foto como um Bitmap
             val photo: Bitmap = data?.extras?.get("data") as Bitmap
-            // Exibir a imagem capturada no ImageView
             binding.imageView.setImageBitmap(photo)
+
+            val formattedPhoto = formatarImagem(photo, 224, 224)
+
+            val detectionResults = fruitDetection.detectFruit(formattedPhoto, interpreter)
+            binding.resultTextView.text = detectionResults.joinToString("\n") { "${it.label}: ${it.confidence}" }
         }
+    }
+
+    private fun formatarImagem(bitmap: Bitmap, largura: Int, altura: Int): Bitmap {
+        // Redimensiona a imagem para as dimensões necessárias pelo modelo
+        return createScaledBitmap(bitmap, largura, altura, true)
     }
 
     override fun onRequestPermissionsResult(
@@ -79,10 +91,8 @@ class AjudaFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permissão concedida, abrir a câmera
                 abrirCamera()
             } else {
-                // Permissão negada
                 Toast.makeText(context, "Permissão da câmera negada", Toast.LENGTH_SHORT).show()
             }
         }

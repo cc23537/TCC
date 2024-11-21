@@ -24,14 +24,14 @@ class FruitDetection(private val context: Context) {
 
     // Detecta frutas na imagem usando o modelo TensorFlow Lite
     fun detectFruit(bitmap: Bitmap, interpreter: Interpreter): List<DetectionResult> {
-        val imageSize = 224  // Dimensão esperada pelo modelo
+        val imageSize = 224  // Suponha que o modelo espere uma imagem 300x300
         val channels = 3     // RGB
 
         // Pré-processar a imagem
         val inputBuffer: ByteBuffer = preprocessImage(bitmap, imageSize)
 
-        // Atualize o array de saída para ter o tamanho correto (12 classes)
-        val outputArray = Array(1) { FloatArray(12) }  // Atualize 12 para o número correto de categorias
+        // Criar array de saída para armazenar os resultados da inferência
+        val outputArray = Array(1) { FloatArray(3) }  // Exemplo: 10 categorias de frutas
 
         // Executar a inferência
         interpreter.run(inputBuffer, outputArray)
@@ -75,14 +75,14 @@ class FruitDetection(private val context: Context) {
     private fun parseDetectionResults(outputArray: Array<FloatArray>): List<DetectionResult> {
         val results = mutableListOf<DetectionResult>()
 
-        // Carrega os nomes das frutas
-        val fruitLabels = loadFruitLabels()
+        // Lista de rótulos correspondentes aos índices do modelo
+        val labels = listOf("Maçã", "Cereja", "Banana") // Adicione mais rótulos conforme necessário
 
-        // Suponha que outputArray[0] contém as pontuações para cada categoria
+        // Iterar sobre os resultados do modelo
         for (i in outputArray[0].indices) {
             val confidence = outputArray[0][i]
             if (confidence > 0.95) { // Ajuste o limiar de confiança conforme necessário
-                val label = if (i < fruitLabels.size) fruitLabels[i] else "Desconhecido"
+                val label = labels.getOrNull(i) ?: "Desconhecido" // Tratamento para índices fora do alcance
                 results.add(DetectionResult("$label, chance: ", confidence))
             }
         }
@@ -90,21 +90,10 @@ class FruitDetection(private val context: Context) {
         return results
     }
 
-    private fun loadFruitLabels(): List<String> {
-        val assetManager = context.assets
-        val labels = mutableListOf<String>()
-
-        // Abre o arquivo no diretório assets
-        assetManager.open("labels.txt").bufferedReader().useLines { lines ->
-            lines.forEach { labels.add(it.trim()) }
-        }
-
-        return labels
-    }
-
 }
 
 
 // Classe de resultado de detecção
 data class DetectionResult(val label: String, val confidence: Float)
+
 

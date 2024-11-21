@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.example.appcomida.api.registerCompra
 import com.example.appcomida.api.registerUser
@@ -48,6 +49,7 @@ class AddListaDialogFragment : DialogFragment() {
 
                 try {
                     registerCompra(nomeCompra,  desc)
+                    setFragmentResult("adicionarAlimento", Bundle())
                 } catch (e: Exception) {
                     // Handle the exception
                 }

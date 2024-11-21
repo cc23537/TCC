@@ -1,5 +1,6 @@
 package com.example.appcomida.ui.Calendario
 
+import CaixaAzulDecorator
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.example.appcomida.ApiService
+import com.example.appcomida.R
 import com.example.appcomida.api.removeAlimento
 import com.example.appcomida.databinding.FragmentCalendarioBinding
 
@@ -90,6 +92,12 @@ class CalendarioFragment : Fragment() {
                     response.body()?.let { alimentos ->
                         val apiData: List<String> = alimentos.mapNotNull { it.validade }
                         updateCalendar(apiData)
+
+                        // Filtra os alimentos do dia atual
+                        val alimentosDoDia = filterFoodsForToday(alimentos)
+
+                        // Atualiza o TextView com os alimentos do dia
+                        updateTodayFoodsLabel(alimentosDoDia)
                     }
                 } else {
 
@@ -103,6 +111,8 @@ class CalendarioFragment : Fragment() {
     }
     private fun updateCalendar(apiData: List<String>) {
         redDays.clear()
+        val azulDays = mutableListOf<CalendarDay>()
+
         apiData.forEach { dateString ->
             val dateParts = dateString.split("-")
             if (dateParts.size == 3) {
@@ -113,12 +123,16 @@ class CalendarioFragment : Fragment() {
 
                 val diasRestantes = diasFaltantes(year, month + 1, day)
                 if (diasRestantes >= 0) {
-                    redDays.add(calendarDay)
+                    azulDays.add(calendarDay) // Adiciona aos dias com a caixa azul
                 }
             }
         }
-        calendarView.invalidateDecorators()
+
+        // Atualiza os decorators
+        calendarView.removeDecorators() // Remove decoradores antigos
+        calendarView.addDecorator(CaixaAzulDecorator(azulDays, requireContext().getDrawable(R.drawable.caixa_azul)!!))
     }
+
     private fun showDateInfoDialog(date: CalendarDay) {
         val service = getRetrofit().create(ApiService::class.java)
 
@@ -217,6 +231,7 @@ class CalendarioFragment : Fragment() {
             showDateInfoDialog(date)
         }
     }
+
     private fun diasFaltantes(year: Int, month: Int, day: Int): Long{
         val dataAtual: LocalDate = LocalDate.now()
         val dataValidade = LocalDate.of(year, month, day)
@@ -224,6 +239,7 @@ class CalendarioFragment : Fragment() {
         val diasRestantes = ChronoUnit.DAYS.between(dataAtual, dataValidade) // Calcula a Diferença de Dias
         return diasRestantes
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun formatDateToISO(dateString: String): String? {
         return try {
@@ -239,6 +255,31 @@ class CalendarioFragment : Fragment() {
         } catch (e: Exception) {
 
             null
+        }
+    }
+
+    private fun filterFoodsForToday(alimentos: List<Alimento>): List<Alimento> {
+        val hoje = LocalDate.now()
+        return alimentos.filter { alimento ->
+            alimento.validade?.let { validadeStr ->
+                try {
+                    val validadeDate = LocalDate.parse(validadeStr) // Supondo formato ISO (yyyy-MM-dd)
+                    validadeDate == hoje
+                } catch (e: Exception) {
+                    false // Ignora alimentos com formato de data inválido
+                }
+            } ?: false
+        }
+    }
+
+    private fun updateTodayFoodsLabel(alimentosDoDia: List<Alimento>) {
+        val todayFoodsTextView = binding.tvExpiredFoods // Certifique-se de que este TextView está no seu layout
+
+        if (alimentosDoDia.isNotEmpty()) {
+            val alimentosList = alimentosDoDia.joinToString(separator = "\n") { "• ${it.nomeAlimento}" }
+            todayFoodsTextView.text = "Alimentos para hoje:\n$alimentosList"
+        } else {
+            todayFoodsTextView.text = "Alimentos para hoje: Nenhum"
         }
     }
 

@@ -18,8 +18,8 @@
             android:title="Calendário" />
         <item
             android:id="@+id/ajudaFragment2"
-            android:icon="@drawable/mao"
-            android:title="Ajude-nos" />
+            android:icon="@drawable/icon_ia"
+            android:title="IA" />
         <item
             android:id="@+id/ReceitasFragment"
             android:icon="@drawable/mao"

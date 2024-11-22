@@ -277,7 +277,7 @@ class CalendarioFragment : Fragment() {
 
         if (alimentosDoDia.isNotEmpty()) {
             val alimentosList = alimentosDoDia.joinToString(separator = "\n") { "• ${it.nomeAlimento}" }
-            todayFoodsTextView.text = "Alimentos para hoje:\n$alimentosList"
+            todayFoodsTextView.text = "Alimentos que vencem Hoje:\n$alimentosList"
         } else {
             todayFoodsTextView.text = "Alimentos para hoje: Nenhum"
         }

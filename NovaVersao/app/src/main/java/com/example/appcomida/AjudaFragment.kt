@@ -71,6 +71,48 @@ class AjudaFragment : Fragment() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
     }
+    private fun loadFruitLabels(): List<String> {
+        val assetManager = context?.assets
+        val labels = mutableListOf<String>()
+
+        try {
+            if (assetManager != null) {
+                assetManager.open("labels.txt").bufferedReader().useLines { lines ->
+                    lines.forEach { line ->
+                        // Cada linha tem formato: "0 NomeDoAlimento"
+                        val parts = line.split(" ")
+                        if (parts.size > 1) {
+                            labels.add(parts.subList(1, parts.size).joinToString(" ")) // Ignorar o índice
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw FileNotFoundException("Arquivo labels.txt não encontrado no diretório assets.")
+        }
+        return labels
+    }
+
+    private fun loadFruitDurations(): List<Long> {
+        val assetManager = context?.assets
+        val durations = mutableListOf<Long>()
+
+        try {
+            if (assetManager != null) {
+                assetManager.open("datadevalidade.txt").bufferedReader().useLines { lines ->
+                    lines.forEach { line ->
+                        durations.add(line.trim().toLongOrNull() ?: 0L) // Adiciona 0 se não puder converter
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw FileNotFoundException("Arquivo datadevalidade.txt não encontrado no diretório assets.")
+        }
+        return durations
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -83,52 +125,27 @@ class AjudaFragment : Fragment() {
             val detectionResults = fruitDetection.detectFruit(formattedPhoto, interpreter)
             binding.resultTextView.text = detectionResults.joinToString("\n") { "${it.label}: ${it.confidence}" }
 
-            binding.resultTextView.text = detectionResults.joinToString("\n") {
-                "${it.label}: ${it.confidence}"
-            }
-            val fruitLabelsWithDates = loadFruitLabelsWithWeeks()
+            // Carregar rótulos e durações
+            val fruitLabels = loadFruitLabels()
+            val fruitDurations = loadFruitDurations()
+
             detectionResults.forEach { result ->
                 val label = result.label
-                var confidence = result.confidence
+                val confidence = result.confidence
 
                 if (confidence > 0.0f) {
-                    // Obter a data de validade correspondente
-                    val weeks = fruitLabelsWithDates[label]?.toLongOrNull()
+                    val index = fruitLabels.indexOf(label)
+                    val weeks = if (index in fruitDurations.indices) fruitDurations[index] else null
 
-                    // Calcular a data de validade a partir da data atual
-                    val validade = if (weeks != null) {
-                        LocalDateTime.now().plusWeeks(weeks)
-                    } else {
-                        null
-                    }
+                    // Calcular a data de validade
+                    val validade = weeks?.let { LocalDateTime.now().plusWeeks(it) }
 
                     lifecycleScope.launch {
                         registrarAlimento(label, null, null, validade.toString())
                     }
                 }
             }
-
         }
-    }
-    private fun loadFruitLabelsWithWeeks(): Map<String, String> {
-        val assetManager = context?.assets
-        val fruitLabelsWithWeeks = mutableMapOf<String, String>()
-
-        try {
-            if (assetManager != null) {
-                assetManager.open("datadevalidade.txt").bufferedReader().useLines { lines ->
-                    lines.forEachIndexed { index, line ->
-
-                        val fruitName = "Alimento${index + 1}"
-                        fruitLabelsWithWeeks[fruitName] = line.trim()
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw FileNotFoundException("Arquivo datadevalidade.txt não encontrado no diretório assets.")
-        }
-        return fruitLabelsWithWeeks
     }
 
     private fun formatarImagem(bitmap: Bitmap, largura: Int, altura: Int): Bitmap {

@@ -15,7 +15,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.appcomida.databinding.FragmentAjudaBinding
 import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.lifecycleScope
+import com.example.appcomida.api.registrarAlimento
+import kotlinx.coroutines.launch
 import org.tensorflow.lite.Interpreter
+import java.time.LocalDateTime
 
 class AjudaFragment : Fragment() {
 
@@ -64,7 +70,7 @@ class AjudaFragment : Fragment() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -75,6 +81,20 @@ class AjudaFragment : Fragment() {
 
             val detectionResults = fruitDetection.detectFruit(formattedPhoto, interpreter)
             binding.resultTextView.text = detectionResults.joinToString("\n") { "${it.label}: ${it.confidence}" }
+
+            binding.resultTextView.text = detectionResults.joinToString("\n") {
+                "${it.label}: ${it.confidence}"
+            }
+            detectionResults.forEach { result ->
+                val label = result.label
+                var confidence = result.confidence
+                if (confidence > 0.0f) {
+                    lifecycleScope.launch {
+                        registrarAlimento(label, null, null, LocalDateTime.now().toString())
+                    }
+                }
+            }
+
         }
     }
 

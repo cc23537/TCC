@@ -77,7 +77,7 @@ suspend fun registerCompra(nome: String, qntde: Int) {
         }
     }
 }
-suspend fun registrarAlimento(nome: String, cal: Double, esp:String, data:String) {
+suspend fun registrarAlimento(nome: String, cal: Double?, esp:String?, data:String) {
     val alimento = Alimento(nome,cal,esp,data)
     try {
         val apiService = getRetrofit().create(ApiService::class.java)

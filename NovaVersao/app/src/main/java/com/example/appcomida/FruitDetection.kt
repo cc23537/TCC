@@ -7,6 +7,7 @@ import java.io.FileNotFoundException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.FileChannel
+import java.util.concurrent.Executor
 
 class FruitDetection(private val context: Context) {
 
@@ -31,7 +32,7 @@ class FruitDetection(private val context: Context) {
         val inputBuffer: ByteBuffer = preprocessImage(bitmap, imageSize)
 
         // Array de saída para armazenar os resultados (ajustado para 12 categorias)
-        val outputArray = Array(1) { FloatArray(13) }
+        val outputArray = Array(1) { FloatArray(12) }
 
         // Executar a inferência
         interpreter.run(inputBuffer, outputArray)
@@ -80,7 +81,7 @@ class FruitDetection(private val context: Context) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            throw FileNotFoundException("Arquivo labels.txt não encontrado no diretório assets.")
+            throw FileNotFoundException("Arquivo fruits.txt não encontrado no diretório assets.")
         }
 
         return labels
@@ -93,6 +94,7 @@ class FruitDetection(private val context: Context) {
         // Carrega os nomes das frutas
         val fruitLabels = loadFruitLabels()
 
+
         // Processa os scores retornados pelo modelo
         for (i in outputArray[0].indices) {
             val confidence = outputArray[0][i]
@@ -100,8 +102,11 @@ class FruitDetection(private val context: Context) {
                 val label = if (i < fruitLabels.size) fruitLabels[i] else "Desconhecido"
                 results.add(DetectionResult("$label, chance: ", confidence))
             }
-        }
 
+        }
+        if (results.isEmpty()) {
+            results.add(DetectionResult("Nenhuma detecção encontrada", 0.0f))
+        }
         return results
     }
 }

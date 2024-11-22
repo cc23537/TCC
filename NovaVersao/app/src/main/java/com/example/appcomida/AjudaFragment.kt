@@ -21,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.appcomida.api.registrarAlimento
 import kotlinx.coroutines.launch
 import org.tensorflow.lite.Interpreter
+import java.io.FileNotFoundException
 import java.time.LocalDateTime
 
 class AjudaFragment : Fragment() {
@@ -85,17 +86,49 @@ class AjudaFragment : Fragment() {
             binding.resultTextView.text = detectionResults.joinToString("\n") {
                 "${it.label}: ${it.confidence}"
             }
+            val fruitLabelsWithDates = loadFruitLabelsWithWeeks()
             detectionResults.forEach { result ->
                 val label = result.label
                 var confidence = result.confidence
+
                 if (confidence > 0.0f) {
+                    // Obter a data de validade correspondente
+                    val weeks = fruitLabelsWithDates[label]?.toLongOrNull()
+
+                    // Calcular a data de validade a partir da data atual
+                    val validade = if (weeks != null) {
+                        LocalDateTime.now().plusWeeks(weeks)
+                    } else {
+                        null
+                    }
+
                     lifecycleScope.launch {
-                        registrarAlimento(label, null, null, LocalDateTime.now().toString())
+                        registrarAlimento(label, null, null, validade.toString())
                     }
                 }
             }
 
         }
+    }
+    private fun loadFruitLabelsWithWeeks(): Map<String, String> {
+        val assetManager = context?.assets
+        val fruitLabelsWithWeeks = mutableMapOf<String, String>()
+
+        try {
+            if (assetManager != null) {
+                assetManager.open("datadevalidade.txt").bufferedReader().useLines { lines ->
+                    lines.forEachIndexed { index, line ->
+
+                        val fruitName = "Alimento${index + 1}"
+                        fruitLabelsWithWeeks[fruitName] = line.trim()
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw FileNotFoundException("Arquivo datadevalidade.txt não encontrado no diretório assets.")
+        }
+        return fruitLabelsWithWeeks
     }
 
     private fun formatarImagem(bitmap: Bitmap, largura: Int, altura: Int): Bitmap {
@@ -118,3 +151,4 @@ class AjudaFragment : Fragment() {
         }
     }
 }
+

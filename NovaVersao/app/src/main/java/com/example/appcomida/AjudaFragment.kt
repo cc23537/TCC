@@ -137,11 +137,25 @@ class AjudaFragment : Fragment() {
                     val index = fruitLabels.indexOf(label)
                     val weeks = if (index in fruitDurations.indices) fruitDurations[index] else null
 
-                    // Calcular a data de validade
-                    val validade = weeks?.let { LocalDateTime.now().plusWeeks(it) }
+                    // Calcular a data de validade apenas se weeks for válido
+                    val validade = weeks?.let {
+                        if (it > 0) {
+                            LocalDateTime.now().plusWeeks(it)
+                        } else {
+                            null
+                        }
+                    }
 
-                    lifecycleScope.launch {
-                        registrarAlimento(label, null, null, validade.toString())
+                    // Log para verificar validade
+                    println("Validade calculada: $validade")
+
+                    // Registrar o alimento apenas se a validade for válida
+                    validade?.let {
+                        lifecycleScope.launch {
+                            registrarAlimento(label, null, null, it.toString())
+                        }
+                    } ?: run {
+                        println("Validade inválida para $label")
                     }
                 }
             }

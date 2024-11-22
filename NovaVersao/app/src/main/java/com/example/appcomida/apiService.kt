@@ -43,4 +43,10 @@ interface ApiService {
         @Path("nome") nome: String,
         @Path("quantidade") quantidade: Int
     ): Response<Void>
+
+    @GET("/acharnome/{email}/{senha}")
+    fun achanome(
+        @Path("email") email : String,
+        @Path("senha") senha: String
+    ) : Response<String>
 }

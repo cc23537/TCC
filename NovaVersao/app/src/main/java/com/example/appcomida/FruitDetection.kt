@@ -31,7 +31,7 @@ class FruitDetection(private val context: Context) {
         val inputBuffer: ByteBuffer = preprocessImage(bitmap, imageSize)
 
         // Array de saída para armazenar os resultados (ajustado para 12 categorias)
-        val outputArray = Array(1) { FloatArray(12) }
+        val outputArray = Array(1) { FloatArray(13) }
 
         // Executar a inferência
         interpreter.run(inputBuffer, outputArray)

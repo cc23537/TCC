@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -13,16 +14,17 @@
     <!-- Label para alimentos vencidos -->
 
     <!-- Botão flutuante -->
+
     <TextView
         android:id="@+id/tvCurrentDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/allerta"
         android:text="Hoje: 21/11/2024"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,17 +32,16 @@
         android:id="@+id/calendarView"
         android:layout_width="379dp"
         android:layout_height="440dp"
-        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCurrentDay"
-        app:mcv_showOtherDates="all" />
+        app:mcv_showOtherDates="all"
+        tools:layout_editor_absoluteY="145dp" />
 
     <TextView
         android:id="@+id/tvExpiredFoods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:padding="8dp"
         android:text="Alimentos vencidos: Nenhum"

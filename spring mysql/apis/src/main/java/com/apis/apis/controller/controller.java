@@ -123,26 +123,23 @@ public class controller {
         }
     }
 
-    @PutMapping("/compras/quantidade/{id}")
-    public Compras putMethodName(@PathVariable int id, @RequestBody Compras compra) {
+    @PutMapping("/compras/{quantidade}/{id}")
+    public Compras putMethodName(@PathVariable int id, @PathVariable int quantidade) {
         Compras novo = comprasRepository.findByIdCompra(id);
-        int quantidade = novo.getQuantidade();
-        if(quantidade > 0){
-            if(quantidade - 1 == 0 ){
+        int quant = novo.getQuantidade();
+        if(quant > 0){
+            if(quant - quantidade <= 0 ){
                 comprasRepository.delete(novo);
                 return null;
             }
 
-            novo.setQuantidade(quantidade - 1);
+            novo.setQuantidade(quant - quantidade);
             return novo; 
         }
         
         return null;
     }
-    
 
-  
-    
 
     @GetMapping("/helloworld")
     public String mensagem(){

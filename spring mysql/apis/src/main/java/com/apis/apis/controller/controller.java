@@ -1,6 +1,7 @@
 package com.apis.apis.controller;
 
 import java.util.List;
+import java.util.function.IntBinaryOperator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,10 @@ import com.apis.apis.models.Compras;
 import com.apis.apis.repository.AlimentoRepository;
 import com.apis.apis.repository.ClienteRepository;
 import com.apis.apis.repository.ComprasRepository;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -116,6 +121,23 @@ public class controller {
         else{
             return null;
         }
+    }
+
+    @PutMapping("/compras/quantidade/{id}")
+    public Compras putMethodName(@PathVariable int id, @RequestBody Compras compra) {
+        Compras novo = comprasRepository.findByIdCompra(id);
+        int quantidade = novo.getQuantidade();
+        if(quantidade > 0){
+            if(quantidade - 1 == 0 ){
+                comprasRepository.delete(novo);
+                return null;
+            }
+
+            novo.setQuantidade(quantidade - 1);
+            return novo; 
+        }
+        
+        return null;
     }
     
 

@@ -10,4 +10,9 @@
 9 Arroz
 10 Carne Bovina
 11 Frango
-12 Pao de forma
+12 Melancia
+13 Pera
+14 Pitaya
+15 Brócolis
+16 Tomate
+17 Pepino

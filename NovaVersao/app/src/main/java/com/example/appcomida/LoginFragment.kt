@@ -2,10 +2,13 @@ package com.example.appcomida
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.appcomida.databinding.FragmentLoginBinding
@@ -42,6 +45,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        togglePasswordVisibility(binding.edtPassworld)
+
         binding.btnLogin.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val senha = binding.edtPassworld.text.toString()
@@ -101,7 +107,7 @@ class LoginFragment : Fragment() {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://03e7-187-106-37-122.ngrok-free.app")
+            .baseUrl("https://76e6-187-106-37-122.ngrok-free.app")
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
@@ -116,6 +122,37 @@ class LoginFragment : Fragment() {
         val editor = sharedPreferences.edit()
         editor.putBoolean("isLoggedIn", true)
         editor.apply()       
+    }
+
+
+    private fun togglePasswordVisibility(editText: EditText) {
+        var isPasswordVisible = false
+
+        editText.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                    // Altere o estado de visibilidade da senha
+                    isPasswordVisible = !isPasswordVisible
+                    if (isPasswordVisible) {
+                        editText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                        editText.setCompoundDrawablesWithIntrinsicBounds(
+                            null, null, resources.getDrawable(R.drawable.baseline_remove_red_eye_24, null), null
+                        )
+                    } else {
+                        editText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                        editText.setCompoundDrawablesWithIntrinsicBounds(
+                            null, null, resources.getDrawable(R.drawable.baseline_remove_red_eye_24, null), null
+                        )
+                    }
+                    // Posicione o cursor corretamente
+                    editText.setSelection(editText.text.length)
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
     }
 }
 

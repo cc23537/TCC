@@ -72,6 +72,6 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
                 notifyItemChanged(position)
             }
             .show()
-        return alimento_teste
+        return nome
     }
 }

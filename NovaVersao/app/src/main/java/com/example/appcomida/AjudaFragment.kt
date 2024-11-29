@@ -159,7 +159,22 @@ class AjudaFragment : Fragment() {
                     }
                 }
             }
+
+            // Mostrar os botões de ação
+            binding.btnAddCalendar.visibility = View.VISIBLE
+            binding.btnAddList.visibility = View.VISIBLE
+
+            // Definir ações dos botões
+            binding.btnAddCalendar.setOnClickListener {
+                //adicionarAoCalendario(detectionResults)
+            }
+
+            binding.btnAddList.setOnClickListener {
+                //adicionarNaLista(detectionResults)
+            }
         }
+
+
     }
 
     private fun formatarImagem(bitmap: Bitmap, largura: Int, altura: Int): Bitmap {

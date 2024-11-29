@@ -55,7 +55,7 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
         }
     }
 
-    public fun deleteItem(position: Int, context: Context) : String{
+    public fun deleteItem(position: Int, context: Context, nome: String, quantidade: Int) : String{
         // Show confirmation dialog
         MaterialAlertDialogBuilder(context)
             .setTitle("Deletar Alimento Permanentemente")
@@ -63,7 +63,7 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
             .setPositiveButton("Sim") { _, _ ->
                 //compraList.removeAt(position)
                 notifyItemRemoved(position)
-                //DeleteLista(nome, quantidade)
+                DeleteLista(nome, quantidade)
             }
             .setNegativeButton("Não") { dialog, _ ->
                 // Reverte o swipe ao notificar a mudança do item

@@ -120,7 +120,7 @@ class ListaFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.rvAlimentos.adapter as RvLista
-                var resposta: String = adapter.deleteItem(viewHolder.adapterPosition, requireContext())
+                var resposta: String = adapter.deleteItem(viewHolder.adapterPosition, requireContext(), alimentosList[])
                 Toast.makeText(requireContext(), "Alimento = "+resposta+"", Toast.LENGTH_SHORT).show()
             }
 

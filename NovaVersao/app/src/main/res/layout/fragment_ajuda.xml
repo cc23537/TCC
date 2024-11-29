@@ -42,4 +42,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resultTextView"
         android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnAddCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar ao Calendário"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/resultTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnAddList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar à Lista"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btnAddCalendar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

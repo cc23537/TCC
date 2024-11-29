@@ -9,7 +9,7 @@ para fazer a conexão com o banco
 
 
 
-Integrantes:
+Integrantes:<br>
 Bruno Moraes<br>
-                    Rafel Alves<br>
-                    Guilherme da Rocha
+Rafael Alves<br>
+Guilherme da Rocha

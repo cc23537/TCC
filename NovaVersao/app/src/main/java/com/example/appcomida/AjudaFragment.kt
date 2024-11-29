@@ -133,7 +133,7 @@ class AjudaFragment : Fragment() {
 
             val detectionResults = fruitDetection.detectFruit(formattedPhoto, interpreter)
             binding.resultTextView.text = detectionResults.joinToString("\n") { "${it.label}: ${it.confidence}" }
-
+            
             // Carregar rótulos e durações
             val fruitLabels = loadFruitLabels()
             val fruitDurations = loadFruitDurations()

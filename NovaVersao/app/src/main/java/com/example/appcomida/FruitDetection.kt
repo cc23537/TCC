@@ -105,7 +105,7 @@ class FruitDetection(private val context: Context) {
 
         }
         if (results.isEmpty()) {
-            results.add(DetectionResult("Nenhuma detecção encontrada", 0.0f))
+            throw Exception("nao achou nada")
         }
         return results
     }

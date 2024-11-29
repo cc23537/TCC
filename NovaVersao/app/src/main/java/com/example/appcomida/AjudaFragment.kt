@@ -18,9 +18,16 @@ import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
+import com.example.appcomida.api.registerCompra
 import com.example.appcomida.api.registrarAlimento
+import com.example.appcomida.dataclass.Compra
+import com.example.appcomida.ui.lista.RvLista
+import getRetrofit
 import kotlinx.coroutines.launch
 import org.tensorflow.lite.Interpreter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.FileNotFoundException
 import java.time.LocalDateTime
 
@@ -34,6 +41,8 @@ class AjudaFragment : Fragment() {
 
     private lateinit var fruitDetection: FruitDetection
     private lateinit var interpreter: Interpreter
+    private lateinit var label: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -130,7 +139,7 @@ class AjudaFragment : Fragment() {
             val fruitDurations = loadFruitDurations()
 
             detectionResults.forEach { result ->
-                val label = result.label
+                label = result.label
                 val confidence = result.confidence
 
                 if (confidence > 0.0f) {
@@ -170,7 +179,7 @@ class AjudaFragment : Fragment() {
             }
 
             binding.btnAddList.setOnClickListener {
-                //adicionarNaLista(detectionResults)
+                lifecycleScope.launch { registerCompra(label,1)  }
             }
         }
 
@@ -196,5 +205,7 @@ class AjudaFragment : Fragment() {
             }
         }
     }
+
+
 }
 

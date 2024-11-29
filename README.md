@@ -10,6 +10,6 @@ para fazer a conexão com o banco
 
 
 Integrantes:
-Bruno Moraes
-                    \nRafel Alves
-                    \nGuilherme da Rocha
+Bruno Moraes\**
+                    Rafel Alves\**
+                    Guilherme da Rocha

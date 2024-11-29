@@ -49,4 +49,7 @@ interface ApiService {
         @Path("email") email : String,
         @Path("senha") senha: String
     ) : Response<String>
+
+    @PUT("/compras/{nome}/{quantidade}")
+    fun deletaumacompra(@Path("nome") nome: String, @Path("quantidade") quantidade: Int): Response<Compra>
 }

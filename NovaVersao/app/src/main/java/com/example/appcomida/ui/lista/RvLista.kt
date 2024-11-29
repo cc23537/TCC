@@ -17,6 +17,8 @@ import com.example.appcomida.dataclass.Alimento
 import com.example.appcomida.dataclass.Compra
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
@@ -61,10 +63,10 @@ class RvLista(private  val compraList : ArrayList<Compra>): RecyclerView.Adapter
             .setTitle("Deletar Alimento Permanentemente")
             .setMessage("Você tem certeza que vai excluir esse Alimento?")
             .setPositiveButton("Sim") { _, _ ->
-                //compraList.removeAt(position)
+                compraList.removeAt(position)
                 notifyItemRemoved(position)
+                CoroutineScope(Dispatchers.Main).launch {     DeleteLista(nome, quantidade)  }
 
-                DeleteLista(nome, quantidade)
             }
             .setNegativeButton("Não") { dialog, _ ->
                 // Reverte o swipe ao notificar a mudança do item

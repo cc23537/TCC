@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@ import com.example.appcomida.dataclass.Compra
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import getRetrofit
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -125,9 +127,11 @@ class ListaFragment : Fragment() {
                 // Agora, você pode passar os dados do alimento (nome e quantidade) para o método de deletação
                 val nomeAlimento = item.alimentoASerComprado // Supondo que o nome do alimento esteja nesse campo
                 val quantidade = item.quantidade
+                lifecycleScope.launch {
+                    var resposta: String = adapter.deleteItem(viewHolder.adapterPosition, requireContext(), nomeAlimento, quantidade)
+                    Toast.makeText(requireContext(), "Alimento = "+resposta+"", Toast.LENGTH_SHORT).show()
+                }
 
-                var resposta: String = adapter.deleteItem(viewHolder.adapterPosition, requireContext(), nomeAlimento, quantidade)
-                Toast.makeText(requireContext(), "Alimento = "+resposta+"", Toast.LENGTH_SHORT).show()
             }
 
             override fun onChildDraw(

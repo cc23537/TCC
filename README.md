@@ -6,3 +6,10 @@ A api foi feita pelo vs code, e fizemos por falta de servidor e precisa das segu
 extensões,  database do visual studio code, Maeven, Mysql, e usando o spring boot,
 por meio da extensão database colocamos o endereço de host,  Username, Database e a senha
 para fazer a conexão com o banco
+
+
+
+Integrantes:
+Bruno Moraes
+Rafel Alves
+Guilherme da Rocha

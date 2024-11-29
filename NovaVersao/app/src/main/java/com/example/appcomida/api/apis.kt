@@ -141,14 +141,14 @@ suspend fun removeAlimento(nome: String,data:String) {
     }
 }
 
-public fun DeleteLista(nome: String, quantidade:Int) {
+fun DeleteLista(nome: String, quantidade:Int) {
     val apiService = getRetrofit().create(ApiService::class.java)
     val response = { apiService.deletaumacompra(nome,quantidade) }
 }
 
 public fun acharnome(email: String, senha: String){
     val apiService =  getRetrofit().create(ApiService::class.java)
-    val response = { apiService.achanome(email,senha)}
+    val response = apiService.achanome(email,senha)
 }
 
 

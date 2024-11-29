@@ -175,7 +175,30 @@ class AjudaFragment : Fragment() {
 
             // Definir ações dos botões
             binding.btnAddCalendar.setOnClickListener {
-                //adicionarAoCalendario(detectionResults)
+                val index = fruitLabels.indexOf(label)
+                val weeks = if (index in fruitDurations.indices) fruitDurations[index] else null
+
+                // Calcular a data de validade apenas se weeks for válido
+                val validade = weeks?.let {
+                    if (it > 0) {
+                        LocalDateTime.now().plusWeeks(it)
+                    } else {
+                        null
+                    }
+                }
+
+                // Log para verificar validade
+                println("Validade calculada: $validade")
+
+                // Registrar o alimento apenas se a validade for válida
+                validade?.let {
+                    lifecycleScope.launch {
+                        registrarAlimento(label, null, null, it.toString())
+                    }
+                } ?: run {
+                    println("Validade inválida para $label")
+                }
+
             }
 
             binding.btnAddList.setOnClickListener {
